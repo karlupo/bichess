@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spiele Jetzt Schach!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="catureInfo">
+        <div  id="blackCaptures" class="capturedFigs">
+            <span id="bCF"></span>    
+                <span id="capturedScoreBlack" class="capturedScore"></span>
+        </div>
+    </div>
+    <div id="chessboard">
+        <div id="overlay"></div>
+        <div id="figures"></div>
+
+        <div id="swapOverlay">
+            <div id="swapMenu">
+                <div id="swapQueen"></div>
+                <div id="swapRook"></div>
+                <div id="swapHorse"></div>
+                <div id="swapBishop"></div>
+            </div>
+        </div>
+    </div>
+    <div class="catureInfo">
+        <div  id="blackCaptures" class="capturedFigs">
+            <span id="wCF"></span>
+            <span id="capturedScoreWhite" class="capturedScore"></span>
+        </div>
+    </div>
+    <script src="drawui.js"></script>
+    <script src="gamelogic.js"></script>
+</body>
+</html>
