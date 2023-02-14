@@ -15,9 +15,6 @@ let firstTime = true;
 let loaded = false;
 
 
-
-
-
 //Ein Array mit allen Spielfiguren, deren Postitionen und Bildern
 let pieces = [
     //Weiß
