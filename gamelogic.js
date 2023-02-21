@@ -319,12 +319,12 @@ function showSwapMenu(col){
 
     document.getElementById("swapQueen").addEventListener("click", function(){
         if(clr == "Black"){
-            swepPieces(col, "QueenBlack")
+            swapPieces(col, "QueenBlack")
             blackScore += 9;
             whiteScore -= 9;
 
         }else{
-            swepPieces(col, "QueenWhite")
+            swapPieces(col, "QueenWhite")
             blackScore -= 9;
             whiteScore += 9;
         }
@@ -334,11 +334,11 @@ function showSwapMenu(col){
 
     document.getElementById("swapRook").addEventListener("click", function(){
         if(clr == "Black"){
-            swepPieces(col, "RookBlack")
+            swapPieces(col, "RookBlack")
             blackScore += 5;
             whiteScore -= 5;
         }else{
-            swepPieces(col, "RookWhite")
+            swapPieces(col, "RookWhite")
             blackScore -= 5;
             whiteScore += 5;
         }
@@ -349,11 +349,11 @@ function showSwapMenu(col){
     
     document.getElementById("swapHorse").addEventListener("click", function(){
         if(clr == "Black"){
-            swepPieces(col, "HorseBlack")
+            swapPieces(col, "HorseBlack")
             blackScore += 3;
             whiteScore -= 3;
         }else{
-            swepPieces(col, "HorseWhite")
+            swapPieces(col, "HorseWhite")
             blackScore -= 3;
             whiteScore += 3;
         }
@@ -363,11 +363,11 @@ function showSwapMenu(col){
 
     document.getElementById("swapBishop").addEventListener("click", function(){
         if(clr == "Black"){
-            swepPieces(col, "BishopBlack")
+            swapPieces(col, "BishopBlack")
             blackScore += 3;
             whiteScore -= 3;
         }else{
-            swepPieces(col, "BishopWhite")
+            swapPieces(col, "BishopWhite")
             blackScore -= 3;
             whiteScore += 3;
         }
@@ -384,7 +384,7 @@ function hideSwapMenu(){
     document.getElementById("swapMenu").className = "";
 }
 
-function swepPieces(col, newPiece){
+function swapPieces(col, newPiece){
 
     let pos = String.fromCharCode(("h".charCodeAt(0) + 1) - (parseInt(col.substring(0, col.indexOf("/")- 1)))) + 1;
 
@@ -394,4 +394,8 @@ function swepPieces(col, newPiece){
             drawPieces();
         }
     }
+}
+
+function isKingCheck() {
+    
 }
