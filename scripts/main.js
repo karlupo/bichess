@@ -19,3 +19,5 @@ for(let i = 0; i < 64; i++){
 
     document.getElementById("chessboard").appendChild(div);
 }
+
+const d = new Pawn("01", "Black");
