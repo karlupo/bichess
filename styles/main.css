@@ -6,13 +6,6 @@
     grid-template-columns: repeat(8, 100px);
     grid-template-rows: repeat(8, 100px);
 }
-
-.chesstile{
-    width: 100px;
-    height: 100px;
-    background-color: green;
-}
-
 #figures{
     position: absolute;
 }
