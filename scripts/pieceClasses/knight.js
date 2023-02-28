@@ -13,7 +13,7 @@ class Knight extends Piece {
         "1Left/2Down",
         "2Left/1Down",
       ],
-      "knight"
+      "Knight"
     );
   }
 }
