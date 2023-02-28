@@ -1,5 +1,5 @@
 class Queen extends Piece{
     constructor(pos, color){
-        super(pos, color, ["IUp", "ILeft", "IRight", "IDown", "ILeftDown", "ILeftUp", "IRightUp", "IRightDown"], "Queen");
+        super(pos, color, ["IU", "IL", "IR", "ID", "ILD", "ILU", "IRU", "IRD"], "Queen");
     }
 }

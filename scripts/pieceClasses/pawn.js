@@ -1,9 +1,9 @@
 class Pawn extends Piece{
     constructor(pos, color){
         if(pos.charAt(1) == "1"){
-            super(pos, color, ["1Up", "2Up", "1Up/1Left", "1Up/1Right"], "Pawn");
+            super(pos, color, ["1U", "2U", "1U/1L", "1U/1R"], "Pawn");
         }else{
-            super(pos, color, ["1Down", "2Down", "1Down/1Left", "1Down/1Right"], "Pawn");
+            super(pos, color, ["1D", "2D", "1D/1L", "1D/1R"], "Pawn");
         }
     }
 }

@@ -4,14 +4,14 @@ class Knight extends Piece {
       pos,
       color,
       [
-        "2Right/1Up",
-        "1Right/2Up",
-        "1Left/2Up",
-        "2Left/1Up",
-        "2Right/1Down",
-        "1Right/2Down",
-        "1Left/2Down",
-        "2Left/1Down",
+        "2R/1U",
+        "1R/2U",
+        "1L/2U",
+        "2L/1U",
+        "2R/1D",
+        "1R/2D",
+        "1L/2D",
+        "2L/1D",
       ],
       "Knight"
     );
