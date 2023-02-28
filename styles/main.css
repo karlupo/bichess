@@ -1,0 +1,21 @@
+#chessboard{
+    border: 2px solid black;
+    width: 800px;
+    height: 800px;
+    display: grid;
+    grid-template-columns: repeat(8, 100px);
+    grid-template-rows: repeat(8, 100px);
+}
+
+.chesstile{
+    width: 100px;
+    height: 100px;
+    background-color: green;
+}
+
+#figures{
+    position: absolute;
+}
+#overlay{
+    position: absolute;
+}
