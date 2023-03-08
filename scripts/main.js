@@ -15,7 +15,7 @@ let pieces = [
   new King("40,", "White"),
   new Bishop("50", "White"),
   new Knight("60", "White"),
-  new Rook("70", "White"),
+  new Rook("70", "White")
 ];
 
 //Draw Chessboard Tiles
