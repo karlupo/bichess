@@ -1,46 +1,60 @@
 //Array of pieces
 let pieces = [
-  new Pawn("01", "White"),
-  new Pawn("11", "White"),
-  new Pawn("21", "White"),
-  new Pawn("31", "White"),
-  new Pawn("41", "White"),
-  new Pawn("51", "White"),
-  new Pawn("61", "White"),
-  new Pawn("71", "White"),
-  new Rook("00", "White"),
-  new Knight("10", "White"),
-  new Bishop("20", "White"),
-  new Queen("30", "White"),
-  new King("40,", "White"),
-  new Bishop("50", "White"),
-  new Knight("60", "White"),
-  new Rook("70", "White"),
+  new Pawn("17", "White"),
+  new Pawn("27", "White"),
+  new Pawn("37", "White"),
+  new Pawn("47", "White"),
+  new Pawn("57", "White"),
+  new Pawn("67", "White"),
+  new Pawn("77", "White"),
+  new Pawn("87", "White"),
+  new Rook("18", "White"),
+  new Knight("28", "White"),
+  new Bishop("38", "White"),
+  new Queen("48", "White"),
+  new King("58,", "White"),
+  new Bishop("68", "White"),
+  new Knight("78", "White"),
+  new Rook("88", "White"),
 
 
 
 
 
-  new Pawn("06", "Black"),
-  new Pawn("16", "Black"),
-  new Pawn("26", "Black"),
-  new Pawn("36", "Black"),
-  new Pawn("46", "Black"),
-  new Pawn("56", "Black"),
-  new Pawn("66", "Black"),
-  new Pawn("76", "Black"),
-  new Rook("07", "Black"),
-  new Knight("17", "Black"),
-  new Bishop("27", "Black"),
-  new Queen("37", "Black"),
-  new King("47,", "Black"),
-  new Bishop("57", "Black"),
-  new Knight("67", "Black"),
-  new Rook("77", "Black")
+  new Pawn("12", "Black"),
+  new Pawn("22", "Black"),
+  new Pawn("32", "Black"),
+  new Pawn("42", "Black"),
+  new Pawn("52", "Black"),
+  new Pawn("62", "Black"),
+  new Pawn("72", "Black"),
+  new Pawn("82", "Black"),
+  new Rook("11", "Black"),
+  new Knight("21", "Black"),
+  new Bishop("31", "Black"),
+  new Queen("41", "Black"),
+  new King("51,", "Black"),
+  new Bishop("61", "Black"),
+  new Knight("71", "Black"),
+  new Rook("81", "Black")
 ];
 
-//Draw Chessboard Tiles
 
+function drawPieces(){
+  for(let i = 0; i < pieces.length; i++){
+    let fig = document.createElement("div");
+    fig.className = "figure";
+    fig.style.backgroundImage = "url('../img/" + pieces[i].name + pieces[i].color + ".png')";
+
+    fig.style.gridColumn = parseInt(pieces[i].pos.charAt(0));
+    fig.style.gridRow = parseInt(pieces[i].pos.charAt(1));
+    document.getElementById("figures").appendChild(fig)
+  }
+}
+
+drawPieces();
+
+//Draw Chessboard Tiles
 for (let i = 0; i < 64; i++) {
   let div = document.createElement("div");
 
