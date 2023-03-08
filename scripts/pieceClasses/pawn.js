@@ -6,4 +6,4 @@ class Pawn extends Piece{
             super(pos, color, ["1D", "2D", "1D/1L", "1D/1R"], "Pawn");
         }
     }
-}
+}                                                               
