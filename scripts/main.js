@@ -15,7 +15,28 @@ let pieces = [
   new King("40,", "White"),
   new Bishop("50", "White"),
   new Knight("60", "White"),
-  new Rook("70", "White")
+  new Rook("70", "White"),
+
+
+
+
+
+  new Pawn("06", "Black"),
+  new Pawn("16", "Black"),
+  new Pawn("26", "Black"),
+  new Pawn("36", "Black"),
+  new Pawn("46", "Black"),
+  new Pawn("56", "Black"),
+  new Pawn("66", "Black"),
+  new Pawn("76", "Black"),
+  new Rook("07", "Black"),
+  new Knight("17", "Black"),
+  new Bishop("27", "Black"),
+  new Queen("37", "Black"),
+  new King("47,", "Black"),
+  new Bishop("57", "Black"),
+  new Knight("67", "Black"),
+  new Rook("77", "Black")
 ];
 
 //Draw Chessboard Tiles
