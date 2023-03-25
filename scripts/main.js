@@ -106,29 +106,77 @@ function drawboard() {
 function getAvailableMoves(piece){
   moves = piece.moves;
   
-  drawMoveOverlay(parseInt(piece.pos.charAt(1)) + parseInt(moves[0].charAt(0)));
+  document.getElementById("overlay").innerHTML = "";
+  parent: for(let i = 0; i < moves.length; i++){
+    if(!moves[i].includes("I")){
+      let movePos = getMovePos(piece, moves[i]);
+      if(!movePos){
+        continue;
+      }
+
+      for(let i = 0; i < pieces.length; i++){
+        if(pieces[i].color == piece.color){
+          if(pieces[i].pos == movePos){
+            continue parent;
+          }
+        }
+      }
+      drawMoveOverlay(movePos, "move");
+    }
+  }
 }
 
 function getMovePos(piece, move){
   newPos = piece.pos;
   if(move.includes("U")){
-    newPos.charAt(1) = parseInt(newPos.charAt(1)) + parseInt(move.charAt(0));
+    if(parseInt(newPos.charAt(1)) - parseInt(move.charAt((move.indexOf("U") - 1))) <= 1){
+      return false;
+    }
+
+    newPos = newPos.charAt(0) + (parseInt(newPos.charAt(1)) - parseInt(move.charAt((move.indexOf("U") - 1))));
   }
   if(move.includes("D")){
-    newPos.charAt(1) = parseInt(newPos.charAt(1)) - parseInt(move.charAt(0));
+
+    if(parseInt(newPos.charAt(1)) + parseInt(move.charAt((move.indexOf("D") - 1))) >= 9){
+      return false;
+    }
+
+    newPos = newPos.charAt(0) + (parseInt(newPos.charAt(1)) + parseInt(move.charAt((move.indexOf("D") - 1))));
   }
   if(move.includes("L")){
-    newPos.charAt(1) = parseInt(newPos.charAt(0)) - parseInt(move.charAt(0));
+
+    if((parseInt(newPos.charAt(0)) - parseInt(move.charAt((move.indexOf("L") - 1)))) <= 0){
+      return false;
+    }
+
+    newPos = (parseInt(newPos.charAt(0)) - parseInt(move.charAt((move.indexOf("L") - 1)))) + newPos.charAt(1);
   }
   if(move.includes("R")){
-    newPos.charAt(1) = parseInt(newPos.charAt(0)) + parseInt(move.charAt(0));
+
+    if((parseInt(newPos.charAt(0)) + parseInt(move.charAt((move.indexOf("R") - 1)))) >= 9){
+      return false;
+    }
+
+    newPos = (parseInt(newPos.charAt(0)) + parseInt(move.charAt((move.indexOf("R") - 1)))) + newPos.charAt(1);
   }
+  return newPos;
 }
 
 
-function drawMoveOverlay(pos){
-  console.log(pos)
-
+function drawMoveOverlay(pos, type){
+  if(type == "move"){
+    let div = document.createElement("div");
+    div.className = "overlayCircle";
+    div.style.gridColumn = pos.charAt(0);
+    div.style.gridRow = pos.charAt(1);
+    document.getElementById("overlay").appendChild(div)
+  }else if(type == "take"){
+    let div = document.createElement("div");
+    div.className = "overlayTake";
+    div.style.gridColumn = pos.charAt(0);
+    div.style.gridRow = pos.charAt(1);
+    document.getElementById("overlay").appendChild(div)
+  }
 }
 
 

@@ -24,3 +24,23 @@
     height: 100px;
     background-size: 100px;
 }
+
+.overlayCircle{
+    width: 34px;
+    height: 34px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    margin-left: 50%;
+    margin-top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+}
+
+.overlayTake{
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, transparent 41px, rgba(0, 0, 0, 0.1) 15px);
+    border-radius: 50%;
+    margin-left: 50%;
+    margin-top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+}
