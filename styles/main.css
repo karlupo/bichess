@@ -23,4 +23,9 @@
     width: 100px;
     height: 100px;
     background-size: 100px;
+    
+}
+
+.arrow{
+    transform-origin: 10px 10px;
 }

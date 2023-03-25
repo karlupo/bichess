@@ -34,24 +34,39 @@ let pieces = [
   new Knight("71", "Black"),
   new Rook("81", "Black"),
 ];
-let chessboard=document.getElementById("chessboard");
+let chessboard = document.getElementById("chessboard");
 chessboard.addEventListener("contextmenu", drawArrow);
-
 drawboard();
 drawPieces();
 
 function drawArrow(event) {
+  removeChildren("figures", "arrow");
   event.preventDefault();
-  
-  console.log(getTile(event).row);
+  let arrowNeck = document.createElement("img");
+  arrowNeck.src = "../img/Arrow-neck.png";
+  arrowNeck.className = "arrow";
+  arrowNeck.style.margin = "0px 0px 0px 50px";
+  arrowNeck.style.transform = "rotate(90deg)"
+  arrowNeck.style.gridColumn = getTile(event).column;
+  arrowNeck.style.gridRow = getTile(event).row;
+  arrowNeck.style.width = "100px";
+  document.getElementById("figures").appendChild(arrowNeck);
 }
 
+function removeChildren(parent, child) {
+  for (let i = 0; i < child.length; i++) {
+    try {
+      document
+        .getElementById(parent)
+        .removeChild(document.getElementsByClassName(child)[i]);
+    } catch (error) {}
+  }
+}
 
-
-function getTile(event){
-  let column=(event.clientX - chessboard.getBoundingClientRect().left)/100;
-  let row=(event.clientY - chessboard.getBoundingClientRect().top)/100;
-  return{column:Math.ceil(column), row: Math.ceil(row) };
+function getTile(event) {
+  let column = (event.clientX - chessboard.getBoundingClientRect().left) / 100;
+  let row = (event.clientY - chessboard.getBoundingClientRect().top) / 100;
+  return { column: Math.ceil(column), row: Math.ceil(row) };
 }
 
 //Draw
@@ -66,20 +81,18 @@ function drawPieces() {
     fig.style.gridColumn = parseInt(pieces[i].pos.charAt(0));
     fig.style.gridRow = parseInt(pieces[i].pos.charAt(1));
 
-    fig.addEventListener("click", function(){
+    fig.addEventListener("click", function () {
       getAvailableMoves(pieces[i]);
-    })
-
-    document.getElementById("figures").appendChild(fig)
+    });
+    
+    document.getElementById("figures").appendChild(fig);
   }
-  
 }
 
 function drawboard() {
   //Draw Chessboard Tiles
   for (let i = 0; i < 64; i++) {
     let div = document.createElement("div");
-    
 
     if (i % 16 < 8) {
       if (i % 2 == 0) {
@@ -94,13 +107,10 @@ function drawboard() {
         div.style.backgroundColor = "rgb(116,148,84)";
       }
     }
-    
+
     chessboard.appendChild(div);
   }
 }
-
-
-
 
 
 function getAvailableMoves(piece){
@@ -130,6 +140,5 @@ function drawMoveOverlay(pos){
   console.log(pos)
 
 }
-
 
 
