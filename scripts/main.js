@@ -50,6 +50,7 @@ function drawPieces(){
     fig.style.gridRow = parseInt(pieces[i].pos.charAt(1));
     document.getElementById("figures").appendChild(fig)
   }
+  
 }
 
 drawPieces();
