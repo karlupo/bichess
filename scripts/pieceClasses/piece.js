@@ -1,6 +1,6 @@
 class Piece{
 
-    //Pos: AnchorPoint: Link Unten; Erste Zahl: Column, Zweite Zahl: Row;
+    //Pos: AnchorPoint: Links Oben; Erste Zahl: Column, Zweite Zahl: Row;
     pos;
 
     //Black or White

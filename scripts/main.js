@@ -48,6 +48,11 @@ function drawPieces(){
 
     fig.style.gridColumn = parseInt(pieces[i].pos.charAt(0));
     fig.style.gridRow = parseInt(pieces[i].pos.charAt(1));
+
+    fig.addEventListener("click", function(){
+      getAvailableMoves(pieces[i]);
+    })
+
     document.getElementById("figures").appendChild(fig)
   }
   
@@ -76,4 +81,35 @@ for (let i = 0; i < 64; i++) {
   document.getElementById("chessboard").appendChild(div);
 }
 
-const d = new Pawn("01", "Black");
+
+
+function getAvailableMoves(piece){
+  moves = piece.moves;
+  
+  drawMoveOverlay(parseInt(piece.pos.charAt(1)) + parseInt(moves[0].charAt(0)));
+}
+
+function getMovePos(piece, move){
+  newPos = piece.pos;
+  if(move.includes("U")){
+    newPos.charAt(1) = parseInt(newPos.charAt(1)) + parseInt(move.charAt(0));
+  }
+  if(move.includes("D")){
+    newPos.charAt(1) = parseInt(newPos.charAt(1)) - parseInt(move.charAt(0));
+  }
+  if(move.includes("L")){
+    newPos.charAt(1) = parseInt(newPos.charAt(0)) - parseInt(move.charAt(0));
+  }
+  if(move.includes("R")){
+    newPos.charAt(1) = parseInt(newPos.charAt(0)) + parseInt(move.charAt(0));
+  }
+}
+
+
+function drawMoveOverlay(pos){
+  console.log(pos)
+
+}
+
+
+
