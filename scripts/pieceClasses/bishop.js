@@ -1,5 +1,5 @@
 class Bishop extends Piece {
     constructor(pos, color) {
-        super(pos, color, ["ILU", "ILD", "IRU", "IRD"], "Bishop");
+        super(pos, color, ["IL/IU", "IL/ID", "IR/IU", "IR/ID"], "Bishop");
     }
 }

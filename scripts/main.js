@@ -34,8 +34,12 @@ let pieces = [
   new Knight("71", "Black"),
   new Rook("81", "Black"),
 ];
+
+let curclicked = null;
+let curColor = "White";
 let chessboard=document.getElementById("chessboard");
 chessboard.addEventListener("contextmenu", drawArrow);
+chessboard.addEventListener("click", movePiece)
 
 drawboard();
 drawPieces();
@@ -57,6 +61,7 @@ function getTile(event){
 //Draw
 
 function drawPieces() {
+  document.getElementById("figures").innerHTML = "";
   for (let i = 0; i < pieces.length; i++) {
     let fig = document.createElement("div");
     fig.className = "figure";
@@ -80,7 +85,6 @@ function drawboard() {
   for (let i = 0; i < 64; i++) {
     let div = document.createElement("div");
     
-
     if (i % 16 < 8) {
       if (i % 2 == 0) {
         div.style.backgroundColor = "rgb(235,235,211)";
@@ -101,29 +105,109 @@ function drawboard() {
 
 
 
+function movePiece(event){
+  let overlays = document.querySelector("#overlay").childNodes
+  let clicked = getTile(event);
 
+
+  for(let i = 0; i < overlays.length; i++){
+    if(clicked.row.toString() == overlays[i].style.gridRow.charAt(0) && clicked.column.toString() == overlays[i].style.gridColumn.charAt(0)){
+      for(let j = 0; j<pieces.length; j++){
+        if(pieces[j] == curclicked){
+          pieces[j].pos = overlays[i].style.gridColumn.charAt(0) + overlays[i].style.gridRow.charAt(0);
+          if(pieces[j].name == "Pawn"){
+            pieces[j].firstMove = false;
+          }
+          if(curColor == "White"){
+            curColor = "Black"
+          }else{
+            curColor = "White";
+          }
+          document.getElementById("overlay").innerHTML = "";
+          for(let k = 0; k<pieces.length; k++){
+            if(pieces[k].pos == pieces[j].pos && pieces[j] != pieces[k]){
+              pieces.splice(k, 1);
+            }
+          }
+        }
+      }
+    }
+  }
+  drawPieces();
+}
 
 function getAvailableMoves(piece){
+
+  if(piece.color != curColor){
+    return;
+  }
+
+  curclicked = piece
   moves = piece.moves;
   
   document.getElementById("overlay").innerHTML = "";
   parent: for(let i = 0; i < moves.length; i++){
     if(!moves[i].includes("I")){
       let movePos = getMovePos(piece, moves[i]);
+      
+      if(piece.name == "Pawn" && !piece.firstMove && moves[i].includes("2")){
+        continue;
+      }
+
+      if(piece.name == "Pawn" && moves[i].includes("/")){
+        let canContinue = false;
+        for(let j = 0; j < pieces.length; j++){
+          if(pieces[j].pos == getMovePos(piece, moves[i])){
+            canContinue = true;
+          }
+        }
+        if(!canContinue){
+          continue;
+        }
+      }
+
       if(!movePos){
         continue;
       }
 
-      for(let i = 0; i < pieces.length; i++){
-        if(pieces[i].color == piece.color){
-          if(pieces[i].pos == movePos){
-            continue parent;
-          }
-        }
+      if(!checkMoveState(movePos, piece)){
+        continue;
       }
-      drawMoveOverlay(movePos, "move");
+      
+
+      drawMoveOverlay(movePos, checkMoveState(movePos, piece));
+    }else{
+      for(let j = 1; j<=8; j++){
+        
+        let moveTemp = moves[i].replaceAll("I", j)
+        
+
+        let movePos = getMovePos(piece, moveTemp);
+        if(!movePos){
+          continue;
+        }
+
+
+        if(!checkMoveState(movePos, piece)){
+          break;
+        }
+        drawMoveOverlay(movePos, checkMoveState(movePos, piece));
+      }
     }
   }
+}
+
+function checkMoveState(movePos, piece){
+  for(let i = 0; i < pieces.length; i++){
+    if(pieces[i].pos == movePos){
+      if(pieces[i].color == piece.color){
+        return false;
+      }else {
+        return "take";
+      }
+    }
+  }
+  return "move";
 }
 
 function getMovePos(piece, move){
