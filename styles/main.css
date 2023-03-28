@@ -5,6 +5,7 @@
     display: grid;
     grid-template-columns: repeat(8, 100px);
     grid-template-rows: repeat(8, 100px);
+    background-image: url("../img/");
 }
 #figures{
     position: absolute;
@@ -23,6 +24,7 @@
     width: 100px;
     height: 100px;
     background-size: 100px;
+    position: absolute;
 }
 
 .overlayCircle{
@@ -43,4 +45,10 @@
     margin-left: 50%;
     margin-top: 50%;
     transform: translateY(-50%) translateX(-50%);
+}
+
+
+#tah{
+
+    color:rgb(80, 42, 4);
 }

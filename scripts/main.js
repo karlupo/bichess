@@ -12,7 +12,7 @@ let pieces = [
   new Knight("28", "White"),
   new Bishop("38", "White"),
   new Queen("48", "White"),
-  new King("58,", "White"),
+  new King("58", "White"),
   new Bishop("68", "White"),
   new Knight("78", "White"),
   new Rook("88", "White"),
@@ -29,15 +29,23 @@ let pieces = [
   new Knight("21", "Black"),
   new Bishop("31", "Black"),
   new Queen("41", "Black"),
-  new King("51,", "Black"),
+  new King("51", "Black"),
   new Bishop("61", "Black"),
   new Knight("71", "Black"),
-  new Rook("81", "Black"),
+  new Rook("81", "Black")
 ];
 
+let piecesDivs = [];
+
 let curclicked = null;
+let curClickedDiv = null;
 let curColor = "White";
 let chessboard=document.getElementById("chessboard");
+let clicked = false;
+
+let curStyle = 0;
+let tilesColors = ["rgb(182,148,110)", "rgb(255,241,220)", "rgb(80, 42, 4)", "rgb(255,241,220)"];
+
 chessboard.addEventListener("contextmenu", drawArrow);
 chessboard.addEventListener("click", movePiece)
 
@@ -51,19 +59,41 @@ function drawArrow(event) {
 }
 
 
-
 function getTile(event){
   let column=(event.clientX - chessboard.getBoundingClientRect().left)/100;
   let row=(event.clientY - chessboard.getBoundingClientRect().top)/100;
   return{column:Math.ceil(column), row: Math.ceil(row) };
 }
 
+document.getElementById("styles").addEventListener("change", function(){
+  curStyle = parseInt(document.getElementById("styles").value)
+  console.log(curStyle)
+  drawboard();
+})
+
+
+chessboard.addEventListener("mousemove", function(e){
+  if(clicked){
+    var x = e.clientX;
+    var y = e.clientY;
+ 
+    curClickedDiv.style.left = x - 57.5+ "px";
+    curClickedDiv.style.top = y -60+ "px";
+    console.log(curClickedDiv.style.left)
+    curClickedDiv.style.gridColumn = "";
+    curClickedDiv.style.gridRow = "";
+    curClickedDiv.style.zIndex = "999";
+  }
+})
+
 //Draw
 
 function drawPieces() {
+  piecesDivs = new Array();
   document.getElementById("figures").innerHTML = "";
   for (let i = 0; i < pieces.length; i++) {
     let fig = document.createElement("div");
+    piecesDivs.push(fig)
     fig.className = "figure";
     fig.style.backgroundImage =
       "url('../img/" + pieces[i].name + pieces[i].color + ".png')";
@@ -71,8 +101,9 @@ function drawPieces() {
     fig.style.gridColumn = parseInt(pieces[i].pos.charAt(0));
     fig.style.gridRow = parseInt(pieces[i].pos.charAt(1));
 
-    fig.addEventListener("click", function(){
-      getAvailableMoves(pieces[i]);
+    fig.addEventListener("pointerdown", function(){
+      getAvailableMoves(pieces[i], fig);
+      clicked = true;
     })
 
     document.getElementById("figures").appendChild(fig)
@@ -81,21 +112,28 @@ function drawPieces() {
 }
 
 function drawboard() {
+  let childs = chessboard.childNodes
+  while (chessboard.childNodes.length > 4) {
+    console.log(chessboard.lastChild.id)
+    if(chessboard.lastChild.id != "figures" && chessboard.lastChild.id != "overlay"){
+      chessboard.removeChild(chessboard.lastChild);
+    }
+}
   //Draw Chessboard Tiles
   for (let i = 0; i < 64; i++) {
     let div = document.createElement("div");
     
     if (i % 16 < 8) {
       if (i % 2 == 0) {
-        div.style.backgroundColor = "rgb(235,235,211)";
+        div.style.backgroundColor = tilesColors[curStyle];
       } else {
-        div.style.backgroundColor = "rgb(116,148,84)";
+        div.style.backgroundColor = tilesColors[curStyle + 1];
       }
     } else {
       if (i % 2 != 0) {
-        div.style.backgroundColor = "rgb(235,235,211)";
+        div.style.backgroundColor = tilesColors[curStyle];
       } else {
-        div.style.backgroundColor = "rgb(116,148,84)";
+        div.style.backgroundColor = tilesColors[curStyle + 1];
       }
     }
     
@@ -124,9 +162,12 @@ function movePiece(event){
             curColor = "White";
           }
           document.getElementById("overlay").innerHTML = "";
-          for(let k = 0; k<pieces.length; k++){
+          console.log(pieces[j])
+          for(let k = 0; k < pieces.length; k++){
+            console.log(pieces[k] + "|" +  pieces[j])
             if(pieces[k].pos == pieces[j].pos && pieces[j] != pieces[k]){
               pieces.splice(k, 1);
+              break;
             }
           }
         }
@@ -136,17 +177,18 @@ function movePiece(event){
   drawPieces();
 }
 
-function getAvailableMoves(piece){
+function getAvailableMoves(piece, fig){
 
   if(piece.color != curColor){
     return;
   }
 
   curclicked = piece
+  curClickedDiv = fig
   moves = piece.moves;
   
   document.getElementById("overlay").innerHTML = "";
-  parent: for(let i = 0; i < moves.length; i++){
+  for(let i = 0; i < moves.length; i++){
     if(!moves[i].includes("I")){
       let movePos = getMovePos(piece, moves[i]);
       
@@ -164,6 +206,10 @@ function getAvailableMoves(piece){
         if(!canContinue){
           continue;
         }
+      }
+
+      if(piece.name == "Pawn" && checkMoveState(movePos, piece) == "take" && (moves[i] == "1D" || moves[i] == "1U")){
+        continue;
       }
 
       if(!movePos){
@@ -192,6 +238,9 @@ function getAvailableMoves(piece){
           break;
         }
         drawMoveOverlay(movePos, checkMoveState(movePos, piece));
+        if(checkMoveState(movePos, piece) == "take"){
+          break;
+        }
       }
     }
   }
@@ -213,7 +262,7 @@ function checkMoveState(movePos, piece){
 function getMovePos(piece, move){
   newPos = piece.pos;
   if(move.includes("U")){
-    if(parseInt(newPos.charAt(1)) - parseInt(move.charAt((move.indexOf("U") - 1))) <= 1){
+    if(parseInt(newPos.charAt(1)) - parseInt(move.charAt((move.indexOf("U") - 1))) <= 0){
       return false;
     }
 
