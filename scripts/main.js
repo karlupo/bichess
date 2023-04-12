@@ -53,9 +53,21 @@ drawboard();
 drawPieces();
 
 function drawArrow(event) {
-  event.preventDefault();
+    removeArrow();
+    event.preventDefault();
+    let arrowNeck = document.createElement("img");
+    arrowNeck.src = "../img/Arrow-neck.png";
+    arrowNeck.className = "arrow";
+    arrowNeck.style.margin = "0px 0px 0px 0px";
+    arrowNeck.style.transform = "rotate(10deg)"
+    arrowNeck.style.gridColumn = getTile(event).column;
+    arrowNeck.style.gridRow = getTile(event).row;
+    arrowNeck.style.width = "100px";
+    document.getElementById("figures").appendChild(arrowNeck);
   
-  console.log(getTile(event).row);
+}
+function removeArrow(){
+  removeChildren("figures", "arrow");
 }
 
 
@@ -63,6 +75,17 @@ function getTile(event){
   let column=(event.clientX - chessboard.getBoundingClientRect().left)/100;
   let row=(event.clientY - chessboard.getBoundingClientRect().top)/100;
   return{column:Math.ceil(column), row: Math.ceil(row) };
+}
+
+
+function removeChildren(parent, child) {
+  for (let i = 0; i < child.length; i++) {
+    try {
+      document
+        .getElementById(parent)
+        .removeChild(document.getElementsByClassName(child)[i]);
+    } catch (error) {}
+  }
 }
 
 document.getElementById("styles").addEventListener("change", function(){
@@ -141,6 +164,7 @@ function drawboard() {
 
 
 function movePiece(event){
+  
   let overlays = document.querySelector("#overlay").childNodes
   let clicked = getTile(event);
 
