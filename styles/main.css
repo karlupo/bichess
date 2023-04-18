@@ -13,6 +13,11 @@
     grid-template-columns: repeat(8, 100px);
     grid-template-rows: repeat(8, 100px);
 }
+
+#myCanvas{
+position: absolute;
+
+}
 #overlay{
     position: absolute;
     display: grid;

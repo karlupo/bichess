@@ -40,41 +40,87 @@ let piecesDivs = [];
 let curclicked = null;
 let curClickedDiv = null;
 let curColor = "White";
-let chessboard=document.getElementById("chessboard");
+let chessboard = document.getElementById("chessboard");
 let clicked = false;
 
 let curStyle = 0;
 let tilesColors = ["rgb(182,148,110)", "rgb(255,241,220)", "rgb(80, 42, 4)", "rgb(255,241,220)"];
 
-chessboard.addEventListener("contextmenu", drawArrow);
-chessboard.addEventListener("click", movePiece)
+chessboard.addEventListener("mousedown", drawArrow);
+chessboard.addEventListener("click", movePiece);
+chessboard.addEventListener("mouseup", finisharrow);
+chessboard.addEventListener("contextmenu", function (event) {
+  event.preventDefault();
+})
 
 drawboard();
 drawPieces();
 
+
+//Draw Arrow
+
+let startedX=-1;
+let startedY=-1;
+let canvas = document.getElementById('myCanvas');
+canvas.width = 800;
+canvas.height = 800;
+let ctx = canvas.getContext('2d');
+ctx.strokeStyle = "rgba(255, 175, 0, 0.7)";
+ctx.lineWidth = 20;
 function drawArrow(event) {
-    removeArrow();
-    event.preventDefault();
-    let arrowNeck = document.createElement("img");
-    arrowNeck.src = "../img/Arrow-neck.png";
-    arrowNeck.className = "arrow";
-    arrowNeck.style.margin = "0px 0px 0px 0px";
-    arrowNeck.style.transform = "rotate(10deg)"
-    arrowNeck.style.gridColumn = getTile(event).column;
-    arrowNeck.style.gridRow = getTile(event).row;
-    arrowNeck.style.width = "100px";
-    document.getElementById("figures").appendChild(arrowNeck);
-  
+ 
+  if (event.button == 2) {
+
+    ctx.beginPath();
+    ctx.moveTo(getTile(event).column * 100 - 50, getTile(event).row * 100 - 50)
+
+    startedX=getTile(event).column;
+    startedY=getTile(event).row;
+  }
+
+
+
 }
-function removeArrow(){
+
+function finisharrow(event) {
+  if (startedX!=-1 && event.button == 2) {
+    ctx.lineTo(getTile(event).column * 100 - 50, getTile(event).row * 100 - 50);
+    ctx.closePath();
+    if(startedX!=getTile(event).column||startedY!=getTile(event).row){
+      ctx.stroke();
+    }
+
+    
+    startedX=-1;
+    startedY=-1;
+  }
+
+
+}
+
+/*
+  removeArrow();
+  event.preventDefault();
+  let arrowNeck = document.createElement("img");
+  arrowNeck.src = "../img/Arrow-neck.png";
+  arrowNeck.className = "arrow";
+  arrowNeck.style.margin = "0px 0px 0px 0px";
+  arrowNeck.style.transform = "rotate(10deg)"
+  arrowNeck.style.gridColumn = getTile(event).column;
+  arrowNeck.style.gridRow = getTile(event).row;
+  arrowNeck.style.width = "100px";
+  document.getElementById("figures").appendChild(arrowNeck);
+*/
+
+function removeArrow() {
   removeChildren("figures", "arrow");
 }
 
 
-function getTile(event){
-  let column=(event.clientX - chessboard.getBoundingClientRect().left)/100;
-  let row=(event.clientY - chessboard.getBoundingClientRect().top)/100;
-  return{column:Math.ceil(column), row: Math.ceil(row) };
+function getTile(event) {
+  let column = (event.clientX - chessboard.getBoundingClientRect().left) / 100;
+  let row = (event.clientY - chessboard.getBoundingClientRect().top) / 100;
+  return { column: Math.ceil(column), row: Math.ceil(row) };
 }
 
 
@@ -84,23 +130,23 @@ function removeChildren(parent, child) {
       document
         .getElementById(parent)
         .removeChild(document.getElementsByClassName(child)[i]);
-    } catch (error) {}
+    } catch (error) { }
   }
 }
 
-document.getElementById("styles").addEventListener("change", function(){
+document.getElementById("styles").addEventListener("change", function () {
   curStyle = parseInt(document.getElementById("styles").value)
   drawboard();
 })
 
 
-chessboard.addEventListener("mousemove", function(e){
-  if(clicked){
+chessboard.addEventListener("mousemove", function (e) {
+  if (clicked) {
     var x = e.clientX;
     var y = e.clientY;
- 
-    curClickedDiv.style.left = x - 57.5+ "px";
-    curClickedDiv.style.top = y -60+ "px";
+
+    curClickedDiv.style.left = x - 57.5 + "px";
+    curClickedDiv.style.top = y - 60 + "px";
     curClickedDiv.style.gridColumn = "";
     curClickedDiv.style.gridRow = "";
     curClickedDiv.style.zIndex = "999";
@@ -122,27 +168,27 @@ function drawPieces() {
     fig.style.gridColumn = parseInt(pieces[i].pos.charAt(0));
     fig.style.gridRow = parseInt(pieces[i].pos.charAt(1));
 
-    fig.addEventListener("pointerdown", function(){
+    fig.addEventListener("pointerdown", function () {
       getAvailableMoves(pieces[i], fig);
       clicked = true;
     })
 
     document.getElementById("figures").appendChild(fig)
   }
-  
+
 }
 
 function drawboard() {
-  let childs = chessboard.childNodes
+  
   while (chessboard.childNodes.length > 4) {
-    if(chessboard.lastChild.id != "figures" && chessboard.lastChild.id != "overlay"){
+    if (chessboard.lastChild.id != "figures" && chessboard.lastChild.id != "overlay") {
       chessboard.removeChild(chessboard.lastChild);
     }
-}
+  }
   //Draw Chessboard Tiles
   for (let i = 0; i < 64; i++) {
     let div = document.createElement("div");
-    
+
     if (i % 16 < 8) {
       if (i % 2 == 0) {
         div.style.backgroundColor = tilesColors[curStyle + 1];
@@ -156,37 +202,37 @@ function drawboard() {
         div.style.backgroundColor = tilesColors[curStyle];
       }
     }
-    
+
     chessboard.appendChild(div);
   }
 }
 
 
 
-function movePiece(event){
-  
+function movePiece(event) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   let overlays = document.querySelector("#overlay").childNodes
   let clicked = getTile(event);
 
 
-  for(let i = 0; i < overlays.length; i++){
-    if(clicked.row.toString() == overlays[i].style.gridRow.charAt(0) && clicked.column.toString() == overlays[i].style.gridColumn.charAt(0)){
-      for(let j = 0; j<pieces.length; j++){
-        if(pieces[j] == curclicked){
+  for (let i = 0; i < overlays.length; i++) {
+    if (clicked.row.toString() == overlays[i].style.gridRow.charAt(0) && clicked.column.toString() == overlays[i].style.gridColumn.charAt(0)) {
+      for (let j = 0; j < pieces.length; j++) {
+        if (pieces[j] == curclicked) {
           pieces[j].pos = overlays[i].style.gridColumn.charAt(0) + overlays[i].style.gridRow.charAt(0);
-          if(pieces[j].name == "Pawn"){
+          if (pieces[j].name == "Pawn") {
             pieces[j].firstMove = false;
           }
-          if(curColor == "White"){
+          if (curColor == "White") {
             curColor = "Black"
-          }else{
+          } else {
             curColor = "White";
           }
           document.getElementById("overlay").innerHTML = "";
-          
-          for(let k = 0; k < pieces.length; k++){
-        
-            if(pieces[k].pos == pieces[j].pos && pieces[j] != pieces[k]){
+
+          for (let k = 0; k < pieces.length; k++) {
+
+            if (pieces[k].pos == pieces[j].pos && pieces[j] != pieces[k]) {
               pieces.splice(k, 1);
               break;
             }
@@ -198,68 +244,68 @@ function movePiece(event){
   drawPieces();
 }
 
-function getAvailableMoves(piece, fig){
+function getAvailableMoves(piece, fig) {
 
-  if(piece.color != curColor){
+  if (piece.color != curColor) {
     return;
   }
 
   curclicked = piece
   curClickedDiv = fig
   moves = piece.moves;
-  
+
   document.getElementById("overlay").innerHTML = "";
-  for(let i = 0; i < moves.length; i++){
-    if(!moves[i].includes("I")){
+  for (let i = 0; i < moves.length; i++) {
+    if (!moves[i].includes("I")) {
       let movePos = getMovePos(piece, moves[i]);
-      
-      if(piece.name == "Pawn" && !piece.firstMove && moves[i].includes("2")){
+
+      if (piece.name == "Pawn" && !piece.firstMove && moves[i].includes("2")) {
         continue;
       }
 
-      if(piece.name == "Pawn" && moves[i].includes("/")){
+      if (piece.name == "Pawn" && moves[i].includes("/")) {
         let canContinue = false;
-        for(let j = 0; j < pieces.length; j++){
-          if(pieces[j].pos == getMovePos(piece, moves[i])){
+        for (let j = 0; j < pieces.length; j++) {
+          if (pieces[j].pos == getMovePos(piece, moves[i])) {
             canContinue = true;
           }
         }
-        if(!canContinue){
+        if (!canContinue) {
           continue;
         }
       }
 
-      if(piece.name == "Pawn" && checkMoveState(movePos, piece) == "take" && (moves[i] == "1D" || moves[i] == "1U")){
+      if (piece.name == "Pawn" && checkMoveState(movePos, piece) == "take" && (moves[i] == "1D" || moves[i] == "1U")) {
         continue;
       }
 
-      if(!movePos){
+      if (!movePos) {
         continue;
       }
 
-      if(!checkMoveState(movePos, piece)){
+      if (!checkMoveState(movePos, piece)) {
         continue;
       }
-      
+
 
       drawMoveOverlay(movePos, checkMoveState(movePos, piece));
-    }else{
-      for(let j = 1; j<=8; j++){
-        
+    } else {
+      for (let j = 1; j <= 8; j++) {
+
         let moveTemp = moves[i].replaceAll("I", j)
-        
+
 
         let movePos = getMovePos(piece, moveTemp);
-        if(!movePos){
+        if (!movePos) {
           continue;
         }
 
 
-        if(!checkMoveState(movePos, piece)){
+        if (!checkMoveState(movePos, piece)) {
           break;
         }
         drawMoveOverlay(movePos, checkMoveState(movePos, piece));
-        if(checkMoveState(movePos, piece) == "take"){
+        if (checkMoveState(movePos, piece) == "take") {
           break;
         }
       }
@@ -267,12 +313,12 @@ function getAvailableMoves(piece, fig){
   }
 }
 
-function checkMoveState(movePos, piece){
-  for(let i = 0; i < pieces.length; i++){
-    if(pieces[i].pos == movePos){
-      if(pieces[i].color == piece.color){
+function checkMoveState(movePos, piece) {
+  for (let i = 0; i < pieces.length; i++) {
+    if (pieces[i].pos == movePos) {
+      if (pieces[i].color == piece.color) {
         return false;
-      }else {
+      } else {
         return "take";
       }
     }
@@ -280,34 +326,34 @@ function checkMoveState(movePos, piece){
   return "move";
 }
 
-function getMovePos(piece, move){
+function getMovePos(piece, move) {
   newPos = piece.pos;
-  if(move.includes("U")){
-    if(parseInt(newPos.charAt(1)) - parseInt(move.charAt((move.indexOf("U") - 1))) <= 0){
+  if (move.includes("U")) {
+    if (parseInt(newPos.charAt(1)) - parseInt(move.charAt((move.indexOf("U") - 1))) <= 0) {
       return false;
     }
 
     newPos = newPos.charAt(0) + (parseInt(newPos.charAt(1)) - parseInt(move.charAt((move.indexOf("U") - 1))));
   }
-  if(move.includes("D")){
+  if (move.includes("D")) {
 
-    if(parseInt(newPos.charAt(1)) + parseInt(move.charAt((move.indexOf("D") - 1))) >= 9){
+    if (parseInt(newPos.charAt(1)) + parseInt(move.charAt((move.indexOf("D") - 1))) >= 9) {
       return false;
     }
 
     newPos = newPos.charAt(0) + (parseInt(newPos.charAt(1)) + parseInt(move.charAt((move.indexOf("D") - 1))));
   }
-  if(move.includes("L")){
+  if (move.includes("L")) {
 
-    if((parseInt(newPos.charAt(0)) - parseInt(move.charAt((move.indexOf("L") - 1)))) <= 0){
+    if ((parseInt(newPos.charAt(0)) - parseInt(move.charAt((move.indexOf("L") - 1)))) <= 0) {
       return false;
     }
 
     newPos = (parseInt(newPos.charAt(0)) - parseInt(move.charAt((move.indexOf("L") - 1)))) + newPos.charAt(1);
   }
-  if(move.includes("R")){
+  if (move.includes("R")) {
 
-    if((parseInt(newPos.charAt(0)) + parseInt(move.charAt((move.indexOf("R") - 1)))) >= 9){
+    if ((parseInt(newPos.charAt(0)) + parseInt(move.charAt((move.indexOf("R") - 1)))) >= 9) {
       return false;
     }
 
@@ -317,14 +363,14 @@ function getMovePos(piece, move){
 }
 
 
-function drawMoveOverlay(pos, type){
-  if(type == "move"){
+function drawMoveOverlay(pos, type) {
+  if (type == "move") {
     let div = document.createElement("div");
     div.className = "overlayCircle";
     div.style.gridColumn = pos.charAt(0);
     div.style.gridRow = pos.charAt(1);
     document.getElementById("overlay").appendChild(div)
-  }else if(type == "take"){
+  } else if (type == "take") {
     let div = document.createElement("div");
     div.className = "overlayTake";
     div.style.gridColumn = pos.charAt(0);
