@@ -16,6 +16,8 @@
 
 #myCanvas{
 position: absolute;
+z-index: 99;
+pointer-events: none;
 
 }
 #overlay{

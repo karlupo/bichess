@@ -68,11 +68,12 @@ let ctx = canvas.getContext('2d');
 ctx.strokeStyle = "rgba(255, 175, 0, 0.7)";
 ctx.lineWidth = 20;
 function drawArrow(event) {
+
  
   if (event.button == 2) {
 
     ctx.beginPath();
-    ctx.moveTo(getTile(event).column * 100 - 50, getTile(event).row * 100 - 50)
+    ctx.moveTo(getTile(event).column * 100 - 50+2, getTile(event).row * 100 - 50+2)
 
     startedX=getTile(event).column;
     startedY=getTile(event).row;
@@ -84,7 +85,7 @@ function drawArrow(event) {
 
 function finisharrow(event) {
   if (startedX!=-1 && event.button == 2) {
-    ctx.lineTo(getTile(event).column * 100 - 50, getTile(event).row * 100 - 50);
+    ctx.lineTo(getTile(event).column * 100 - 50+2, getTile(event).row * 100 - 50+2);
     ctx.closePath();
     if(startedX!=getTile(event).column||startedY!=getTile(event).row){
       ctx.stroke();
@@ -95,7 +96,7 @@ function finisharrow(event) {
     startedY=-1;
   }
 
-
+ 
 }
 
 /*
