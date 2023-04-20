@@ -140,14 +140,28 @@ document.getElementById("styles").addEventListener("change", function () {
   drawboard();
 })
 
+let tempX = 0;
+let tempY = 0;
+
+document.addEventListener("scroll", (event) => {
+  console.log("Hell")
+  if (clicked) {
+    curClickedDiv.style.left = tempX - 57.5 + "px";
+    curClickedDiv.style.top = (tempY - 60 + window.pageYOffset) + "px";
+    curClickedDiv.style.gridColumn = "";
+    curClickedDiv.style.gridRow = "";
+    curClickedDiv.style.zIndex = "999";
+  }
+});
 
 chessboard.addEventListener("mousemove", function (e) {
   if (clicked) {
     var x = e.clientX;
     var y = e.clientY;
-
+    tempX = x;
+    tempY = y;
     curClickedDiv.style.left = x - 57.5 + "px";
-    curClickedDiv.style.top = y - 60 + "px";
+    curClickedDiv.style.top = (y - 60 + window.pageYOffset) + "px";
     curClickedDiv.style.gridColumn = "";
     curClickedDiv.style.gridRow = "";
     curClickedDiv.style.zIndex = "999";
