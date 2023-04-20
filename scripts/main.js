@@ -146,7 +146,7 @@ let tempY = 0;
 document.addEventListener("scroll", (event) => {
   console.log("Hell")
   if (clicked) {
-    curClickedDiv.style.left = tempX - 57.5 + "px";
+    curClickedDiv.style.left = (tempX - 57.5+ window.pageXOffset) + "px";
     curClickedDiv.style.top = (tempY - 60 + window.pageYOffset) + "px";
     curClickedDiv.style.gridColumn = "";
     curClickedDiv.style.gridRow = "";
@@ -160,7 +160,7 @@ chessboard.addEventListener("mousemove", function (e) {
     var y = e.clientY;
     tempX = x;
     tempY = y;
-    curClickedDiv.style.left = x - 57.5 + "px";
+    curClickedDiv.style.left = (x - 57.5+ window.pageXOffset) + "px";
     curClickedDiv.style.top = (y - 60 + window.pageYOffset) + "px";
     curClickedDiv.style.gridColumn = "";
     curClickedDiv.style.gridRow = "";
