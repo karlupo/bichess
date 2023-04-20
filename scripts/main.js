@@ -169,7 +169,10 @@ function drawPieces() {
     fig.style.gridColumn = parseInt(pieces[i].pos.charAt(0));
     fig.style.gridRow = parseInt(pieces[i].pos.charAt(1));
 
-    fig.addEventListener("pointerdown", function () {
+    fig.addEventListener("pointerdown", function (event) {
+      if(event.button!=0){
+        return;
+      }
       getAvailableMoves(pieces[i], fig);
       clicked = true;
     })
@@ -207,7 +210,6 @@ function drawboard() {
     chessboard.appendChild(div);
   }
 }
-
 
 
 function movePiece(event) {
