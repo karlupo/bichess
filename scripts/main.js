@@ -163,7 +163,7 @@ chessboard.addEventListener("mousemove", function (e) {
     curClickedDiv.style.left = (x - 57.5+ window.pageXOffset) + "px";
     curClickedDiv.style.top = (y - 60 + window.pageYOffset) + "px";
     curClickedDiv.style.gridColumn = "";
-    curClickedDiv.style.gridRow = "";
+    curClickedDiv.style.gridRow = ""; 
     curClickedDiv.style.zIndex = "999";
   }
 })
