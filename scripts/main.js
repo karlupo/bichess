@@ -221,7 +221,6 @@ let tempX = 0;
 let tempY = 0;
 
 document.addEventListener("scroll", (event) => {
-  console.log("Hell")
   if (clicked) {
     curClickedDiv.style.left = (tempX - 57.5 + window.pageXOffset) + "px";
     curClickedDiv.style.top = (tempY - 60 + window.pageYOffset) + "px";
@@ -336,6 +335,7 @@ function movePiece(event) {
     }
   }
   drawPieces();
+  console.log("ist " + curColor + "gecheckt? " + getKingChecked());
 }
 
 function getAvailableMoves(piece, fig) {
@@ -473,5 +473,53 @@ function drawMoveOverlay(pos, type) {
   }
 }
 
+function getKingChecked() {
+  let tempColor = curColor;
+  for (let i = 0; i < pieces.length; i++) {
+    if (pieces[i].name == "King" && pieces[i].color == tempColor) {
+      kingPos = pieces[i].pos;
+    }
+  }
+  for (let i = 0; i < pieces.length; i++) {
+    if (pieces[i].color != tempColor) {
+      let moves = pieces[i].moves;
+      for (let j = 0; j < moves.length; j++) {
+        if (!moves[j].includes("I")) {
+          if(pieces[i].name == "Pawn" && !moves[j].includes("/")) continue;
+          let movePos = getMovePos(pieces[i], moves[j]);
+          if (movePos == kingPos) {
+            return true;
+          }
+        } else {
+          if(isBlocked(moves[j], pieces[i], kingPos)) continue;
+          for (let k = 1; k <= 8; k++) {
+            let moveTemp = moves[j].replaceAll("I", k)
+            let movePos = getMovePos(pieces[i], moveTemp);
+            if (movePos == kingPos) {
+              return true;
+            }
+          }
+        }
+      }
+    }
+  }
+  return false;
+}
+
+function isBlocked(move, posPiece, endPos) {
+  for (let k = 1; k <= 8; k++) {
+    let moveTemp = move.replaceAll("I", k)
+    let movePos = getMovePos(posPiece, moveTemp);
+    if (movePos == endPos) {
+      return false;
+    }
+    for (let i = 0; i < pieces.length; i++) {
+      if (pieces[i].pos == movePos) {
+        return true;
+      }
+    }
+  }
+  return false; 
+}
 
 
