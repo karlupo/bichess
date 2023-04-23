@@ -58,48 +58,125 @@ drawPieces();
 
 
 //Draw Arrow
-
-let startedX=-1;
-let startedY=-1;
+let startedX = -1;
+let startedY = -1;
 let canvas = document.getElementById('myCanvas');
 canvas.width = 800;
 canvas.height = 800;
 let ctx = canvas.getContext('2d');
 ctx.strokeStyle = "rgba(255, 175, 0, 0.7)";
 ctx.lineWidth = 20;
+
+
 function drawArrow(event) {
 
- 
+
   if (event.button == 2) {
 
+    let x = getTile(event).column * 100 - 50 + 2;
+    let y = getTile(event).row * 100 - 50 + 2;
     ctx.beginPath();
-    ctx.moveTo(getTile(event).column * 100 - 50+2, getTile(event).row * 100 - 50+2)
 
-    startedX=getTile(event).column;
-    startedY=getTile(event).row;
+    ctx.moveTo(getTile(event).column * 100 - 50 + 2, getTile(event).row * 100 - 50 + 2)
+
+    startedX = getTile(event).column;
+    startedY = getTile(event).row;
   }
 
 
 
 }
+
+
 
 function finisharrow(event) {
-  if (startedX!=-1 && event.button == 2) {
-    ctx.lineTo(getTile(event).column * 100 - 50+2, getTile(event).row * 100 - 50+2);
-    ctx.closePath();
-    if(startedX!=getTile(event).column||startedY!=getTile(event).row){
+  if (startedX != -1 && event.button == 2) {
+
+    let x = getTile(event).column * 100 - 50 + 2;
+    let y = getTile(event).row * 100 - 50 + 2;
+
+    if (Math.abs(startedX - getTile(event).column) == 1 && Math.abs(startedY - getTile(event).row) == 2) {
+      ctx.lineTo(startedX * 100 - 50 + 2, y);
+      if (startedX * 100 - 50 + 2 > x) {
+        ctx.lineTo(x + 50, y);
+      } else {
+        ctx.lineTo(x - 50, y);
+      }
       ctx.stroke();
+      ctx.closePath();
+      if (startedX * 100 - 50 + 2 > x) {
+        drawArrowHead(x, y, 0);
+      } else {
+        drawArrowHead(x, y, Math.PI);
+      }
+
+    } else if (Math.abs(startedX - getTile(event).column) == 2 && Math.abs(startedY - getTile(event).row) == 1) {
+      ctx.lineTo(x, startedY * 100 - 50 + 2);
+      if (startedY * 100 - 50 + 2 > y) {
+        ctx.lineTo(x, y + 50);
+      } else {
+        ctx.lineTo(x, y - 50);
+      }
+      ctx.stroke();
+      ctx.closePath();
+      if (startedY * 100 - 50 + 2 > y) {
+        drawArrowHead(x, y, Math.PI / 2);
+      } else {
+        drawArrowHead(x, y, Math.PI * 3 / 2);
+      }
+
+    } else {
+      let angle = calcAngle(startedX * 100 - 50 + 2, startedY * 100 - 50 + 2, getTile(event).column * 100 - 50 + 2, getTile(event).row * 100 - 50 + 2);
+      let length = Math.sqrt(Math.pow(startedX * 100 - 50 + 2 - x, 2) + Math.pow(startedY * 100 - 50 + 2 - y, 2));
+
+      x = startedX * 100 - 50 + 2 - Math.cos(angle) * (length - 50);
+      y = startedY * 100 - 50 + 2 - Math.sin(angle) * (length - 50);
+
+      ctx.lineTo(x, y);
+
+      ctx.closePath();
+      if (startedX != getTile(event).column || startedY != getTile(event).row) {
+        ctx.stroke();
+        drawArrowHead(getTile(event).column * 100 - 50 + 2, getTile(event).row * 100 - 50 + 2, angle);
+
+      }
     }
 
-    
-    startedX=-1;
-    startedY=-1;
+
+    startedX = -1;
+    startedY = -1;
   }
 
- 
+
 }
 
-/*
+function calcAngle(x1, y1, x2, y2) {
+  let angle = Math.atan2(y1 - y2, x1 - x2);
+  return angle;
+}
+
+
+
+function drawArrowHead(x, y, angle) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(angle);
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(40, 20);
+  ctx.lineTo(40, 10);
+  ctx.lineTo(50, 10);
+  ctx.lineTo(50, -10);
+  ctx.lineTo(40, -10);
+  ctx.lineTo(40, -20);
+  ctx.closePath();
+  ctx.restore();
+  ctx.fillStyle = "rgba(255, 175, 0, 0.7)";
+  ctx.fill();
+
+}
+
+/*  
   removeArrow();
   event.preventDefault();
   let arrowNeck = document.createElement("img");
@@ -146,7 +223,7 @@ let tempY = 0;
 document.addEventListener("scroll", (event) => {
   console.log("Hell")
   if (clicked) {
-    curClickedDiv.style.left = (tempX - 57.5+ window.pageXOffset) + "px";
+    curClickedDiv.style.left = (tempX - 57.5 + window.pageXOffset) + "px";
     curClickedDiv.style.top = (tempY - 60 + window.pageYOffset) + "px";
     curClickedDiv.style.gridColumn = "";
     curClickedDiv.style.gridRow = "";
@@ -160,10 +237,10 @@ chessboard.addEventListener("mousemove", function (e) {
     var y = e.clientY;
     tempX = x;
     tempY = y;
-    curClickedDiv.style.left = (x - 57.5+ window.pageXOffset) + "px";
+    curClickedDiv.style.left = (x - 57.5 + window.pageXOffset) + "px";
     curClickedDiv.style.top = (y - 60 + window.pageYOffset) + "px";
     curClickedDiv.style.gridColumn = "";
-    curClickedDiv.style.gridRow = ""; 
+    curClickedDiv.style.gridRow = "";
     curClickedDiv.style.zIndex = "999";
   }
 })
@@ -184,7 +261,7 @@ function drawPieces() {
     fig.style.gridRow = parseInt(pieces[i].pos.charAt(1));
 
     fig.addEventListener("pointerdown", function (event) {
-      if(event.button!=0){
+      if (event.button != 0) {
         return;
       }
       getAvailableMoves(pieces[i], fig);
@@ -197,7 +274,7 @@ function drawPieces() {
 }
 
 function drawboard() {
-  
+
   while (chessboard.childNodes.length > 4) {
     if (chessboard.lastChild.id != "figures" && chessboard.lastChild.id != "overlay") {
       chessboard.removeChild(chessboard.lastChild);
