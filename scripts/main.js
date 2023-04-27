@@ -336,6 +336,7 @@ function movePiece(event) {
     }
   }
   drawPieces();
+  console.log("ist " +  curColor + " Schachmatt? " + isCheckmated(curColor));
 }
 
 function getAvailableMoves(piece, fig) {
@@ -479,7 +480,7 @@ function isLegalMove(piece, movePos) {
   piecesTemp = JSON.parse(JSON.stringify(pieces))
   for(let i = 0; i < pieces.length; i++){
     if(pieces[i].pos == movePos) {
-      piecesTemp.splice(i, 1);
+      piecesTemp[i] = piece;
     }
     if(pieces[i] == piece) {
       piecesTemp[i].pos = movePos;
@@ -532,5 +533,21 @@ function isBlocked(move, posPiece, endPos, piecesTemp) {
   }
   return false; 
 }
+
+function isCheckmated() {
+  for (let i = 0; i < pieces.length; i++) {
+    if (pieces[i].color != curColor) continue;
+    moves = pieces[i].moves;
+    for (let j = 0; j < moves.length; j++) {
+      let movePos = getMovePos(pieces[i], moves[j]);
+      if(isLegalMove(pieces[i], movePos)) {
+        console.log(pieces[i].name + " " + moves[j] + " " + movePos)
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 
 
