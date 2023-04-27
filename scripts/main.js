@@ -68,6 +68,7 @@ ctx.strokeStyle = "rgba(255, 175, 0, 0.7)";
 ctx.lineWidth = 20;
 
 
+
 function drawArrow(event) {
 
 
@@ -335,7 +336,6 @@ function movePiece(event) {
     }
   }
   drawPieces();
-  console.log("ist " + curColor + "gecheckt? " + getKingChecked());
 }
 
 function getAvailableMoves(piece, fig) {
@@ -357,6 +357,8 @@ function getAvailableMoves(piece, fig) {
         continue;
       }
 
+
+
       if (piece.name == "Pawn" && moves[i].includes("/")) {
         let canContinue = false;
         for (let j = 0; j < pieces.length; j++) {
@@ -373,7 +375,7 @@ function getAvailableMoves(piece, fig) {
         continue;
       }
 
-      if (!movePos) {
+      if (!movePos || !isLegalMove(piece, movePos)) {
         continue;
       }
 
@@ -390,7 +392,7 @@ function getAvailableMoves(piece, fig) {
 
 
         let movePos = getMovePos(piece, moveTemp);
-        if (!movePos) {
+        if (!movePos || !isLegalMove(piece, movePos)) {
           continue;
         }
 
@@ -421,7 +423,7 @@ function checkMoveState(movePos, piece) {
 }
 
 function getMovePos(piece, move) {
-  newPos = piece.pos;
+  newPos = (String)(piece.pos);
   if (move.includes("U")) {
     if (parseInt(newPos.charAt(1)) - parseInt(move.charAt((move.indexOf("U") - 1))) <= 0) {
       return false;
@@ -473,48 +475,57 @@ function drawMoveOverlay(pos, type) {
   }
 }
 
-function getKingChecked() {
-  let tempColor = curColor;
-  for (let i = 0; i < pieces.length; i++) {
-    if (pieces[i].name == "King" && pieces[i].color == tempColor) {
-      kingPos = pieces[i].pos;
+function isLegalMove(piece, movePos) {
+  piecesTemp = JSON.parse(JSON.stringify(pieces))
+  for(let i = 0; i < pieces.length; i++){
+    if(pieces[i].pos == movePos) {
+      piecesTemp.splice(i, 1);
+    }
+    if(pieces[i] == piece) {
+      piecesTemp[i].pos = movePos;
     }
   }
-  for (let i = 0; i < pieces.length; i++) {
-    if (pieces[i].color != tempColor) {
-      let moves = pieces[i].moves;
+  tempColor = piece.color;
+  console.log(tempColor)
+  for (let i = 0; i < piecesTemp.length; i++) {
+    if (piecesTemp[i].name == "King" && piecesTemp[i].color == tempColor) {
+      kingPos = piecesTemp[i].pos;
+    }
+  }
+  for (let i = 0; i < piecesTemp.length; i++) {
+    if (piecesTemp[i].color != tempColor) {
+      let moves = piecesTemp[i].moves;
       for (let j = 0; j < moves.length; j++) {
         if (!moves[j].includes("I")) {
-          if(pieces[i].name == "Pawn" && !moves[j].includes("/")) continue;
-          let movePos = getMovePos(pieces[i], moves[j]);
+          if(piecesTemp[i].name == "Pawn" && !moves[j].includes("/")) continue;
+          let movePos = getMovePos(piecesTemp[i], moves[j]);
           if (movePos == kingPos) {
-            return true;
+            return false;
           }
         } else {
-          if(isBlocked(moves[j], pieces[i], kingPos)) continue;
           for (let k = 1; k <= 8; k++) {
             let moveTemp = moves[j].replaceAll("I", k)
-            let movePos = getMovePos(pieces[i], moveTemp);
+            let movePos = getMovePos(piecesTemp[i], moveTemp);
             if (movePos == kingPos) {
-              return true;
+              if(!isBlocked(moves[j], piecesTemp[i], kingPos, piecesTemp)) return false;
             }
           }
         }
       }
     }
   }
-  return false;
+  return true;
 }
 
-function isBlocked(move, posPiece, endPos) {
+function isBlocked(move, posPiece, endPos, piecesTemp) {
   for (let k = 1; k <= 8; k++) {
     let moveTemp = move.replaceAll("I", k)
     let movePos = getMovePos(posPiece, moveTemp);
     if (movePos == endPos) {
       return false;
     }
-    for (let i = 0; i < pieces.length; i++) {
-      if (pieces[i].pos == movePos) {
+    for (let i = 0; i < piecesTemp.length; i++) {
+      if (piecesTemp[i].pos == movePos) {
         return true;
       }
     }
