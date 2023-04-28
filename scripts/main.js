@@ -376,7 +376,7 @@ function getAvailableMoves(piece, fig) {
         continue;
       }
 
-      if (!movePos || !isLegalMove(piece, movePos)) {
+      if (!movePos || !isLegalMove(piece, moves[i])) {
         continue;
       }
 
@@ -393,7 +393,7 @@ function getAvailableMoves(piece, fig) {
 
 
         let movePos = getMovePos(piece, moveTemp);
-        if (!movePos || !isLegalMove(piece, movePos)) {
+        if (!movePos || !isLegalMove(piece, moveTemp)) {
           continue;
         }
 
@@ -425,6 +425,7 @@ function checkMoveState(movePos, piece) {
 
 function getMovePos(piece, move) {
   newPos = (String)(piece.pos);
+  move = (String)(move);
   if (move.includes("U")) {
     if (parseInt(newPos.charAt(1)) - parseInt(move.charAt((move.indexOf("U") - 1))) <= 0) {
       return false;
@@ -476,7 +477,9 @@ function drawMoveOverlay(pos, type) {
   }
 }
 
-function isLegalMove(piece, movePos) {
+function isLegalMove(piece, move) {
+  movePos = getMovePos(piece, move);
+  
   piecesTemp = JSON.parse(JSON.stringify(pieces))
   for(let i = 0; i < pieces.length; i++){
     if(pieces[i].pos == movePos) {
@@ -485,6 +488,9 @@ function isLegalMove(piece, movePos) {
     if(pieces[i] == piece) {
       piecesTemp[i].pos = movePos;
     }
+  }
+  if(isBlocked(move, piece, movePos, piecesTemp)){
+    return false;
   }
   tempColor = piece.color;
   console.log(tempColor)
@@ -508,7 +514,7 @@ function isLegalMove(piece, movePos) {
             let moveTemp = moves[j].replaceAll("I", k)
             let movePos = getMovePos(piecesTemp[i], moveTemp);
             if (movePos == kingPos) {
-              if(!isBlocked(moves[j], piecesTemp[i], kingPos, piecesTemp)) return false;
+              if(!isBlocked(moves[j], piecesTemp[i], kingPos, piecesTemp) && !isBlocked(move, piece, movePos, pieces)) return false;
             }
           }
         }
@@ -548,6 +554,5 @@ function isCheckmated() {
   }
   return true;
 }
-
 
 
