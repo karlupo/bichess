@@ -336,7 +336,6 @@ function movePiece(event) {
     }
   }
   drawPieces();
-  console.log("ist " +  curColor + " Schachmatt? " + isCheckmated(curColor));
 }
 
 function getAvailableMoves(piece, fig) {
@@ -350,7 +349,7 @@ function getAvailableMoves(piece, fig) {
   moves = piece.moves;
 
   document.getElementById("overlay").innerHTML = "";
-  for (let i = 0; i < moves.length; i++) {
+  parent: for (let i = 0; i < moves.length; i++) {
     if (!moves[i].includes("I")) {
       let movePos = getMovePos(piece, moves[i]);
 
@@ -370,13 +369,30 @@ function getAvailableMoves(piece, fig) {
         if (!canContinue) {
           continue;
         }
+      } else if(piece.name == "Pawn"  && !moves[i].includes("/")) {
+        let canContinue = true;
+        for (let j = 0; j < pieces.length; j++) {
+          if (pieces[j].pos == getMovePos(piece, moves[i])) {
+            canContinue = false;
+          }
+        }
+        if (!canContinue) {
+          continue;
+        }
+      }
+      if(piece.name == "Pawn" && moves[i].includes("2")) {
+        for(let j = 0; j<pieces.length; j++) {
+          if(pieces[j].pos == getMovePos(piece, moves[0])) {
+            continue parent;
+          }
+        }
       }
 
       if (piece.name == "Pawn" && checkMoveState(movePos, piece) == "take" && (moves[i] == "1D" || moves[i] == "1U")) {
         continue;
       }
 
-      if (!movePos || !isLegalMove(piece, moves[i])) {
+      if (!movePos|| !isLegalMove(piece, moves[i])) {
         continue;
       }
 
@@ -393,12 +409,12 @@ function getAvailableMoves(piece, fig) {
 
 
         let movePos = getMovePos(piece, moveTemp);
-        if (!movePos || !isLegalMove(piece, moveTemp)) {
+        if (!movePos|| !isLegalMove(piece, moveTemp)) {
           continue;
         }
 
 
-        if (!checkMoveState(movePos, piece) ) {
+        if (!checkMoveState(movePos, piece)) {
           break;
         }
         drawMoveOverlay(movePos, checkMoveState(movePos, piece));
@@ -477,21 +493,26 @@ function drawMoveOverlay(pos, type) {
   }
 }
 
-function isLegalMove(piece, move) {
+function isLegalMove(piece, move) {//#endregion
   movePos = getMovePos(piece, move);
+  if(piece.name == "Pawn" && !move.includes("/")) {
+    for(let i = 0; i<pieces.length; i++) {
+      if(movePos == piece.pos) return false;
+    }
+  }
   piecesTemp = JSON.parse(JSON.stringify(pieces))
-  for(let i = 0; i < pieces.length; i++){
-    if(pieces[i].pos == movePos) {
+  for (let i = 0; i < pieces.length; i++) {
+    if (pieces[i].pos == movePos) {
       piecesTemp[i] = piece;
     }
-    if(pieces[i] == piece) {
+    if (pieces[i] == piece) {
       piecesTemp[i].pos = movePos;
     }
   }
   tempColor = piece.color;
   for (let i = 0; i < piecesTemp.length; i++) {
     if (piecesTemp[i].name == "King" && piecesTemp[i].color == tempColor) {
-      kingPos = piecesTemp[i].pos;
+      king = piecesTemp[i];
     }
   }
   for (let i = 0; i < piecesTemp.length; i++) {
@@ -499,17 +520,17 @@ function isLegalMove(piece, move) {
       let moves = piecesTemp[i].moves;
       for (let j = 0; j < moves.length; j++) {
         if (!moves[j].includes("I")) {
-          if(piecesTemp[i].name == "Pawn" && !moves[j].includes("/")) continue;
+          if (piecesTemp[i].name == "Pawn" && !moves[j].includes("/")) continue;
           let movePos = getMovePos(piecesTemp[i], moves[j]);
-          if (movePos == kingPos) {
+          if (movePos == king.pos) {
             return false;
           }
         } else {
           for (let k = 1; k <= 8; k++) {
             let moveTemp = moves[j].replaceAll("I", k)
             let movePos = getMovePos(piecesTemp[i], moveTemp);
-            if (movePos == kingPos) {
-              if(!isBlocked(moves[j], piecesTemp[i], kingPos, piecesTemp) && !isBlocked(move, piece, piecesTemp[i].pos, pieces)) return false;
+            if (movePos == king.pos) {
+              if (!isBlocked(moves[j], piecesTemp[i], king, piecesTemp) && !isBlocked(move, piece, piecesTemp[i], pieces)) return false;
             }
           }
         }
@@ -519,11 +540,15 @@ function isLegalMove(piece, move) {
   return true;
 }
 
-function isBlocked(move, posPiece, endPos, piecesTemp) {
+function isBlocked(move, posPiece, endPiece, piecesTemp) {
+  if(!posPiece.moves[0].includes("I")) {
+    return posPiece.color == endPiece.color;
+  }
+  move = (String)(move);
   for (let k = 1; k <= 8; k++) {
     let moveTemp = move.replaceAll("I", k)
     let movePos = getMovePos(posPiece, moveTemp);
-    if (movePos == endPos) {
+    if (movePos == endPiece.pos) {
       return false;
     }
     for (let i = 0; i < piecesTemp.length; i++) {
@@ -532,22 +557,11 @@ function isBlocked(move, posPiece, endPos, piecesTemp) {
       }
     }
   }
-  return false; 
+  return false;
 }
 
-function isCheckmated() {
-  for (let i = 0; i < pieces.length; i++) {
-    if (pieces[i].color != curColor) continue;
-    moves = pieces[i].moves;
-    for (let j = 0; j < moves.length; j++) {
-      let movePos = getMovePos(pieces[i], moves[j]);
-      if(isLegalMove(pieces[i], movePos)) {
-        console.log(pieces[i].name + " " + moves[j] + " " + movePos)
-        return false;
-      }
-    }
-  }
-  return true;
+function isCheckMated() {
+   
 }
 
 
