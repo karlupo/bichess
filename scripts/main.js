@@ -356,13 +356,10 @@ function getAvailableMoves(piece, fig) {
       if (piece.name == "Pawn" && !piece.firstMove && moves[i].includes("2")) {
         continue;
       }
-
-
-
       if (piece.name == "Pawn" && moves[i].includes("/")) {
         let canContinue = false;
         for (let j = 0; j < pieces.length; j++) {
-          if (pieces[j].pos == getMovePos(piece, moves[i])) {
+          if (pieces[j].pos == movePos) {
             canContinue = true;
           }
         }
@@ -372,7 +369,7 @@ function getAvailableMoves(piece, fig) {
       } else if(piece.name == "Pawn"  && !moves[i].includes("/")) {
         let canContinue = true;
         for (let j = 0; j < pieces.length; j++) {
-          if (pieces[j].pos == getMovePos(piece, moves[i])) {
+          if (pieces[j].pos == movePos) {
             canContinue = false;
           }
         }
@@ -399,8 +396,6 @@ function getAvailableMoves(piece, fig) {
       if (!checkMoveState(movePos, piece)) {
         continue;
       }
-
-
       drawMoveOverlay(movePos, checkMoveState(movePos, piece));
     } else {
       for (let j = 1; j <= 8; j++) {
@@ -409,14 +404,10 @@ function getAvailableMoves(piece, fig) {
 
 
         let movePos = getMovePos(piece, moveTemp);
-        if (!movePos|| !isLegalMove(piece, moveTemp)) {
-          continue;
+        if (!isLegalMove(piece, moveTemp)) {
+          continue
         }
 
-
-        if (!checkMoveState(movePos, piece)) {
-          break;
-        }
         drawMoveOverlay(movePos, checkMoveState(movePos, piece));
         if (checkMoveState(movePos, piece) == "take") {
           break;
@@ -478,6 +469,7 @@ function getMovePos(piece, move) {
 
 
 function drawMoveOverlay(pos, type) {
+  pos = (String)(pos);
   if (type == "move") {
     let div = document.createElement("div");
     div.className = "overlayCircle";
@@ -493,7 +485,76 @@ function drawMoveOverlay(pos, type) {
   }
 }
 
-function isLegalMove(piece, move) {//#endregion
+function isLegalMove(piece, move) {
+
+  /*
+  if (!move.includes("I")) {
+    let movePos = getMovePos(piece, move);
+
+    if (piece.name == "Pawn" && !piece.firstMove && move.includes("2")) {
+      return false;
+    }
+
+
+
+    if (piece.name == "Pawn" && move.includes("/")) {
+      let canContinue = false;
+      for (let j = 0; j < pieces.length; j++) {
+        if (pieces[j].pos == getMovePos(piece, move)) {
+          canContinue = true;
+        }
+      }
+      if (!canContinue) {
+        return false;
+      }
+    } else if(piece.name == "Pawn"  && !move.includes("/")) {
+      let canContinue = true;
+      for (let j = 0; j < pieces.length; j++) {
+        if (pieces[j].pos == getMovePos(piece, move)) {
+          canContinue = false;
+        }
+      }
+      if (!canContinue) {
+        return false;
+      }
+    }
+    if(piece.name == "Pawn" && move.includes("2")) {
+      for(let j = 0; j<pieces.length; j++) {
+        if(pieces[j].pos == getMovePos(piece, moves[0])) {
+          return false;
+        }
+      }
+    }
+
+    if (piece.name == "Pawn" && checkMoveState(movePos, piece) == "take" && (move == "1D" || move == "1U")) {
+      return false;
+    }
+
+    if (!movePos) {
+      return false;
+    }
+
+    if (!checkMoveState(movePos, piece)) {
+      return false;
+    }
+  } else {
+    for (let j = 1; j <= 8; j++) {
+
+      let moveTemp = move.replaceAll("I", j)
+
+
+      let movePos = getMovePos(piece, moveTemp);
+      if (!movePos) {
+        return false;
+      }
+
+
+      if (!checkMoveState(movePos, piece)) {
+        return false;
+      }
+    }
+  }
+  */
   movePos = getMovePos(piece, move);
   if(piece.name == "Pawn" && !move.includes("/")) {
     for(let i = 0; i<pieces.length; i++) {
@@ -559,9 +620,4 @@ function isBlocked(move, posPiece, endPiece, piecesTemp) {
   }
   return false;
 }
-
-function isCheckMated() {
-   
-}
-
 
