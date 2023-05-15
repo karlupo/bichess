@@ -366,7 +366,7 @@ function getAvailableMoves(piece, fig) {
         if (!canContinue) {
           continue;
         }
-      } else if(piece.name == "Pawn"  && !moves[i].includes("/")) {
+      } else if (piece.name == "Pawn" && !moves[i].includes("/")) {
         let canContinue = true;
         for (let j = 0; j < pieces.length; j++) {
           if (pieces[j].pos == movePos) {
@@ -377,9 +377,9 @@ function getAvailableMoves(piece, fig) {
           continue;
         }
       }
-      if(piece.name == "Pawn" && moves[i].includes("2")) {
-        for(let j = 0; j<pieces.length; j++) {
-          if(pieces[j].pos == getMovePos(piece, moves[0])) {
+      if (piece.name == "Pawn" && moves[i].includes("2")) {
+        for (let j = 0; j < pieces.length; j++) {
+          if (pieces[j].pos == getMovePos(piece, moves[0])) {
             continue parent;
           }
         }
@@ -389,7 +389,7 @@ function getAvailableMoves(piece, fig) {
         continue;
       }
 
-      if (!movePos|| !isLegalMove(piece, moves[i])) {
+      if (!movePos || !isLegalMove(piece, moves[i])) {
         continue;
       }
 
@@ -404,10 +404,14 @@ function getAvailableMoves(piece, fig) {
 
 
         let movePos = getMovePos(piece, moveTemp);
-        if (!isLegalMove(piece, moveTemp)) {
-          continue
+        if (!movePos || !isLegalMove(piece, moveTemp)) {
+          continue;
         }
 
+
+        if (!checkMoveState(movePos, piece)) {
+          break;
+        }
         drawMoveOverlay(movePos, checkMoveState(movePos, piece));
         if (checkMoveState(movePos, piece) == "take") {
           break;
@@ -486,90 +490,37 @@ function drawMoveOverlay(pos, type) {
 }
 
 function isLegalMove(piece, move) {
-
-  /*
-  if (!move.includes("I")) {
-    let movePos = getMovePos(piece, move);
-
-    if (piece.name == "Pawn" && !piece.firstMove && move.includes("2")) {
-      return false;
-    }
-
-
-
-    if (piece.name == "Pawn" && move.includes("/")) {
-      let canContinue = false;
-      for (let j = 0; j < pieces.length; j++) {
-        if (pieces[j].pos == getMovePos(piece, move)) {
-          canContinue = true;
-        }
-      }
-      if (!canContinue) {
-        return false;
-      }
-    } else if(piece.name == "Pawn"  && !move.includes("/")) {
-      let canContinue = true;
-      for (let j = 0; j < pieces.length; j++) {
-        if (pieces[j].pos == getMovePos(piece, move)) {
-          canContinue = false;
-        }
-      }
-      if (!canContinue) {
-        return false;
-      }
-    }
-    if(piece.name == "Pawn" && move.includes("2")) {
-      for(let j = 0; j<pieces.length; j++) {
-        if(pieces[j].pos == getMovePos(piece, moves[0])) {
-          return false;
-        }
-      }
-    }
-
-    if (piece.name == "Pawn" && checkMoveState(movePos, piece) == "take" && (move == "1D" || move == "1U")) {
-      return false;
-    }
-
-    if (!movePos) {
-      return false;
-    }
-
-    if (!checkMoveState(movePos, piece)) {
-      return false;
-    }
-  } else {
-    for (let j = 1; j <= 8; j++) {
-
-      let moveTemp = move.replaceAll("I", j)
-
-
-      let movePos = getMovePos(piece, moveTemp);
-      if (!movePos) {
-        return false;
-      }
-
-
-      if (!checkMoveState(movePos, piece)) {
-        return false;
-      }
-    }
-  }
-  */
   movePos = getMovePos(piece, move);
-  if(piece.name == "Pawn" && !move.includes("/")) {
-    for(let i = 0; i<pieces.length; i++) {
-      if(movePos == piece.pos) return false;
+  if (piece.name == "Pawn" && !move.includes("/")) {
+    for (let i = 0; i < pieces.length; i++) {
+      if (movePos == piece.pos) return false;
     }
   }
   piecesTemp = JSON.parse(JSON.stringify(pieces))
-  for (let i = 0; i < pieces.length; i++) {
-    if (pieces[i].pos == movePos) {
-      piecesTemp[i] = piece;
+  if (isFreesquare(movePos)) {
+    for (let i = 0; i < piecesTemp.length; i++) {
+      if (piecesTemp[i].pos == piece.pos) {
+        piecesTemp[i].pos = movePos;
+      }
     }
-    if (pieces[i] == piece) {
-      piecesTemp[i].pos = movePos;
+  } else {
+    let wasPlaced = false;
+    for (let i = 0; i < piecesTemp.length; i++) {
+      if (piecesTemp[i].pos == movePos) {
+        piecesTemp[i] = JSON.parse(JSON.stringify(piece));
+        piecesTemp[i].pos = movePos;
+        wasPlaced = true;
+      }
+    }
+    if (wasPlaced) {
+      for (let i = 0; i < piecesTemp.length; i++) {
+        if (piecesTemp[i].pos == piece.pos) {
+          piecesTemp.splice(i, 1);
+        }
+      }
     }
   }
+  console.log(piecesTemp);
   tempColor = piece.color;
   for (let i = 0; i < piecesTemp.length; i++) {
     if (piecesTemp[i].name == "King" && piecesTemp[i].color == tempColor) {
@@ -591,7 +542,9 @@ function isLegalMove(piece, move) {
             let moveTemp = moves[j].replaceAll("I", k)
             let movePos = getMovePos(piecesTemp[i], moveTemp);
             if (movePos == king.pos) {
-              if (!isBlocked(moves[j], piecesTemp[i], king, piecesTemp) && !isBlocked(move, piece, piecesTemp[i], pieces)) return false;
+              console.log(isBlocked(moves[j], piecesTemp[i], king, piecesTemp));
+              console.log(isBlocked(move, piece, piecesTemp[i], pieces));
+              if (!isBlocked(moves[j], piecesTemp[i], king, piecesTemp)) return false;
             }
           }
         }
@@ -602,7 +555,7 @@ function isLegalMove(piece, move) {
 }
 
 function isBlocked(move, posPiece, endPiece, piecesTemp) {
-  if(!posPiece.moves[0].includes("I")) {
+  if (!posPiece.moves[0].includes("I")) {
     return posPiece.color == endPiece.color;
   }
   move = (String)(move);
@@ -620,4 +573,12 @@ function isBlocked(move, posPiece, endPiece, piecesTemp) {
   }
   return false;
 }
+
+function isFreesquare(pos) {
+  for (let i = 0; i < pieces.length; i++) {
+    if (pieces[i].pos == pos) return false;
+  }
+  return true;
+}
+
 
