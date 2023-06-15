@@ -2,7 +2,7 @@
 
 
 
-BiChess is a collaborative chess game project created by San, Benni, and Clemens, who are students at HTL Rennweg. It is a work-in-progress and currently includes basic local chess gameplay, a chess bot(Stockfish) and the ability to play online. The project is built using HTML, CSS, JavaScript, and Node.js. Future plans for the game include the functionality to play against a friend chosen by you, a timemode selection and more.
+BiChess is a collaborative chess game project created by San, Benni, and Clemens, who are students at HTL Rennweg. It is work-in-progress and currently includes basic local chess gameplay, a chess bot and the ability to play online (WIP). The project is built using HTML, CSS, JavaScript, and Node.js. Future plans for the game include the functionality to play against a friend chosen by you, a timemode selection and more.
 
 
 
