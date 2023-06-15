@@ -11,6 +11,7 @@ BiChess is a collaborative chess game project created by San, Benni, and Clemens
     Play chess against a friend localy
     Play against our chessbot
     Play against other players online (WIP)
+    Create and edit your own Profile
    
     
 # To-DO
