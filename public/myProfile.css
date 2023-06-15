@@ -1,0 +1,214 @@
+#maininfos{
+    margin-top: 6rem;
+    background-color: #09152c;
+    width: 70vw;
+    margin-left: 15%;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1rem;
+    transition: all 0.2s ease-in-out;
+}
+
+#usernametitle{
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 3em;
+    color: #ffffff;
+    margin-left: 0.5em;
+    height: fit-content;
+    width: fit-content;
+    word-break: break-all;
+
+    
+    -webkit-user-select: text; /* Safari */
+    -ms-user-select: text; /* IE 10 and IE 11 */
+    user-select: text; /* Standard syntax */
+}
+
+#pb{
+    border-radius: 50%;
+    margin-left: 2em;
+}
+
+#flag{
+    font-size: 3rem;
+    margin: auto 0.6em;
+}
+
+#rank{
+    font-size: 2rem;
+    margin: auto 0.2em;
+    color: rgb(173, 173, 173);
+}
+
+#edit{
+    font-size: 2rem;
+    transition: all 0.2s ease-in-out;
+}
+
+#edit:hover{
+    transform: scale(1.04);
+}
+
+#username:focus{
+    outline: none;
+}
+
+#editProfile{
+    position: fixed;
+    top: 9rem;
+    left: 50%;
+    transform: translate(-50%);
+    margin: 0 auto;
+    background-color: #ffffff;
+    width: 26em;
+    height: 34em;
+    border-radius: 1.5em;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75);
+    color: #09152c;
+    margin: 0 auto;
+    padding: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+#editProfile.hidden{
+    display: none;
+}
+
+#editProfile h2{
+    text-align: center;
+    font-size: 3rem;
+    font-family: 'Archivo Black', sans-serif;
+}
+
+#editProfile label{
+    display: inline-block;
+    width: 90px;
+    text-align: left;
+    margin-left: 1.25rem;
+}
+
+input,
+textarea {
+    /* To make sure that all text fields have the same font settings
+     By default, textareas have a monospace font */
+    font: 1em sans-serif;
+
+    /* To give the same size to all text fields */
+    width: 300px;
+    box-sizing: border-box;
+
+    /* To harmonize the look & feel of text field border */
+    border: 1px solid #999;
+}
+
+input:focus{
+    outline: none;
+}
+
+
+.editdiv{
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.editdiv input{
+    padding: 0.3rem 0.5rem;
+    border-radius: 0.2rem;
+    border: 1px solid #09152cb2;
+}
+
+#btndiv{
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+#editbtn{
+    background-color: #09152c;
+    color: #ffffff;
+    border: none;
+    padding: 0.25rem 1rem;
+    border-radius: 0.5em;
+    font-size: 1.5rem;
+    transition: all 0.2s ease-in-out;
+}
+
+#editbtn:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+#editHeader{
+    margin: 0;
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #09152c;
+    color: #ffffff;
+    border-radius: 1.3em 1.3em 0 0;
+}
+
+#closeEdit{
+    font-size: 3rem;
+    transition: all 0.2s ease-in-out;
+}
+
+#closeEdit:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.blur{
+    filter: blur(5px);
+}
+
+#editImage{
+    width: 10rem;
+    height: 10rem;
+    /* background-image: url("profilepics/pb.jpg"); */
+    background-repeat: no-repeat;
+    background-size:contain;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-left: 50%;
+    transform: translate(-50%);
+    margin-top: -2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+input[type="file"]::file-selector-button{
+    color: white;
+    background-color: #09152c9b;
+    outline: none;
+    border: 1px solid white;
+    transform: translate(-50%);
+    border-radius: 0.5rem;
+    transition: all 0.09s linear;
+}
+
+input[type="file"]::file-selector-button:hover{
+    padding: 0.3rem;
+}
+
+#imgUpload{
+    border: none;
+    border-radius: 0;
+    overflow: hidden;
+    padding-left: 50%;
+}
+
+
+#profilepic{
+   border-radius: 50%;
+}

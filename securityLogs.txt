@@ -1,0 +1,100 @@
+//Security Logs//
+12.6.2023 12:18:34: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+12.6.2023 12:19:40: Player with id: 6 tried to make a illegal move		 Type: Game Manipulation
+12.6.2023 12:21:22: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+12.6.2023 12:21:50: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+12.6.2023 15:56:54: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+13.6.2023 8:4:32: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+13.6.2023 8:4:34: Player with id: 1 tried to move a piece that does not exist		 Type: Game Manipulation
+13.6.2023 8:4:36: Player with id: 1 tried to move a piece that does not exist		 Type: Game Manipulation
+13.6.2023 8:4:36: Player with id: 1 tried to move a piece that does not exist		 Type: Game Manipulation
+13.6.2023 8:4:37: Player with id: 1 tried to move a piece that does not exist		 Type: Game Manipulation
+13.6.2023 22:20:43: Player with id: 1 tried to make a move that doesn't exist		 Type: Game Manipulation
+14.6.2023 7:41:25: Player with id: 1 tried to move when it was not his turn		 Type: Game Manipulation
+14.6.2023 7:41:55: Player with id: 1 tried to move when it was not his turn		 Type: Game Manipulation
+14.6.2023 7:42:24: Player with id: 1 tried to move when it was not his turn		 Type: Game Manipulation
+14.6.2023 7:51:2: Player with id: 6 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 7:52:8: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 7:53:2: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 7:53:29: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 7:53:32: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 7:53:41: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 7:54:1: Player with id: 6 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 7:55:42: Player with id: 1 tried to move when it was not his turn		 Type: Game Manipulation
+14.6.2023 11:1:24: Player with id: 10 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 11:2:30: Player with id: 6 tried to move when it was not his turn		 Type: Game Manipulation
+14.6.2023 11:2:42: Player with id: 10 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 11:3:8: Player with id: 10 tried to move a piece that does not exist		 Type: Game Manipulation
+14.6.2023 11:3:10: Player with id: 10 tried to move a piece that does not exist		 Type: Game Manipulation
+14.6.2023 11:3:11: Player with id: 10 tried to move a piece that does not exist		 Type: Game Manipulation
+14.6.2023 11:3:12: Player with id: 10 tried to move a piece that does not exist		 Type: Game Manipulation
+14.6.2023 11:3:13: Player with id: 6 tried to move when it was not his turn		 Type: Game Manipulation
+14.6.2023 11:3:23: Player with id: 10 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 11:4:32: Player with id: 6 tried to move when it was not his turn		 Type: Game Manipulation
+14.6.2023 11:4:35: Player with id: 6 tried to move when it was not his turn		 Type: Game Manipulation
+14.6.2023 11:6:15: Player with id: 6 tried to move when it was not his turn		 Type: Game Manipulation
+14.6.2023 18:17:40: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 18:17:55: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 18:18:3: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 18:18:5: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 18:18:7: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 18:18:28: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 18:18:44: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 18:18:49: Player with id: 1 tried to move a piece that does not exist		 Type: Game Manipulation
+14.6.2023 18:18:50: Player with id: 1 tried to move a piece that does not exist		 Type: Game Manipulation
+14.6.2023 18:18:51: Player with id: 1 tried to move a piece that does not exist		 Type: Game Manipulation
+14.6.2023 18:18:51: Player with id: 1 tried to move a piece that does not exist		 Type: Game Manipulation
+14.6.2023 18:18:52: Player with id: 1 tried to move a piece that does not exist		 Type: Game Manipulation
+14.6.2023 18:18:53: Player with id: 1 tried to move a piece that does not exist		 Type: Game Manipulation
+14.6.2023 18:18:54: Player with id: 1 tried to move a piece that does not exist		 Type: Game Manipulation
+14.6.2023 18:18:55: Player with id: 1 tried to move a piece that does not exist		 Type: Game Manipulation
+14.6.2023 18:18:56: Player with id: 1 tried to move a piece that does not exist		 Type: Game Manipulation
+14.6.2023 18:18:56: Player with id: 1 tried to move a piece that does not exist		 Type: Game Manipulation
+14.6.2023 18:18:57: Player with id: 1 tried to move a piece that does not exist		 Type: Game Manipulation
+14.6.2023 18:18:58: Player with id: 1 tried to move a piece that does not exist		 Type: Game Manipulation
+14.6.2023 18:19:1: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 18:19:7: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 18:19:10: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 18:19:12: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 18:19:14: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 18:19:20: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 18:27:22: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 18:30:3: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 18:30:8: Player with id: 1 tried to make a illegal move		 Type: Game Manipulation
+14.6.2023 18:30:10: Player with id: 1 tried to move a piece that does not exist		 Type: Game Manipulation
+14.6.2023 18:30:10: Player with id: 1 tried to move a piece that does not exist		 Type: Game Manipulation
+14.6.2023 19:22:9: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 19:22:10: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 19:22:12: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 19:22:13: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 19:22:18: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 19:34:15: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 19:34:16: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 19:34:17: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 19:34:18: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 20:14:51: Player with id: 6 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 20:14:52: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 20:14:55: Player with id: 6 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 20:14:57: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 20:14:59: Player with id: 6 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 20:15:12: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 20:15:17: Player with id: 6 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 20:15:22: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 20:15:26: Player with id: 6 tried to make a illegal move		 Type: Game Manipulationpulation
+14.6.2023 21:10:31: Player with id: 6 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 21:10:34: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 21:10:40: Player with id: 6 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 21:10:42: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+14.6.2023 21:10:45: Player with id: 6 tried to manipulate the enemys clock		 Type: Game Manipulation
+15.6.2023 8:45:57: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+15.6.2023 8:46:27: Player with id: 3 tried to manipulate his clock		 Type: Game Manipulation
+15.6.2023 8:46:31: Player with id: 3 tried to manipulate the enemys clock		 Type: Game Manipulation
+15.6.2023 8:46:42: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+15.6.2023 10:18:34: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+15.6.2023 10:20:33: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+15.6.2023 10:42:8: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+15.6.2023 10:42:18: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+15.6.2023 10:42:27: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+15.6.2023 10:42:44: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+15.6.2023 10:42:52: Player with id: 1 tried to manipulate the enemys clock		 Type: Game Manipulation
+15.6.2023 11:19:6: Player with id: 6 tried to manipulate the enemys clock		 Type: Game Manipulation

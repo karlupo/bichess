@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="login.css">
+    <script src="https://kit.fontawesome.com/81b1e7371a.js" crossorigin="anonymous"></script>
+    <title>Anmelden</title>
+    <link rel="stylesheet" href="impressum.css">
+</head>
+<body>
+    
+    <nav>
+        <i class="fa-solid fa-bars fa-xl" id="navicon" style="color: #ffffff;"></i>
+        <div id="navlinks">
+            <a href="/">Start</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+            <a href="/impressum">Impressum</a>
+            <% if(typeof username !== 'undefined'){ %>
+                <a href="/myProfile" id="loggedin">Logged in as: <%= username %></a>
+            <% }else{ %>
+                <a href="/login" id="loggedin">Not logged in</a>
+            <% } %>
+        </div>
+        <h1 id="title">biChess</h1>
+
+    </nav>
+
+    <div id="impressum">
+        <h2>Impressum</h2>
+        <h3>Betreiber:</h3>
+        <ul>
+            <li>Clemens W.</li>
+            <li>San R.</li>
+            <li>Benjamin H.</li>
+        </ul>
+
+        <h3>Kontakt:</h3>
+        <ul>
+            <li>E-Mail: karlupo15@gmail.com</li>
+        </ul>
+    </div>
+
+    <script src="global.js"></script>
+
+</body>
+
+</html>

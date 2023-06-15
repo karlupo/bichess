@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap'); /*Archivo*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap'); /*Roboto*/
+
+
+*{
+    scroll-behavior: smooth;
+}
+
+body{
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none; /* Firefox */
+}
+
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+#select{
+    margin: 12vh auto;
+    width: 50vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    row-gap: 3em;
+    column-gap: 7em;
+}
+
+.playDiv{
+
+    background-color: #333f54;
+    color: white;
+    width: 11em;
+    height: 10em;
+    border-radius: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    transition: 0.4s all ease;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+}           
+
+
+.playlogo{
+    width: 8em;
+    height: 8em;
+    background-size:8em;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+    margin-top: -4.4em;
+
+}
+
+.playtitle{
+    font-size: 2em;
+    font-family: 'Archivo Black', sans-serif;
+    text-align: center;
+    z-index: 20;
+    text-shadow: 0px 0px 10px rgba(0,0,0,1);
+}
+
+#friend-img{
+    background-image: url('img/onlineLogo.png');
+    
+}
+
+#random-img{
+    background-image: url('img/localLogo.png');
+  
+}
+
+
+@media (max-width: 828px) {
+    h3{
+        margin: 25.5rem 0;
+        width: 100vw;
+    }
+    .infocont{
+        margin: 2em auto;
+    }
+
+    #infos{
+        margin-top: 20rem;
+    }
+
+    #gamemodes{
+        margin-top: 6.5em;
+    }
+}
+
+@media (min-width: 828px) {
+    h3{
+        margin: 30.5rem auto;
+        width: 40vw;
+    }
+
+    .infocont{
+        margin: 8em;
+    }
+
+    .left{
+        float: left;
+     }
+     
+     .right{
+         float: right;
+     }
+
+     #infos{
+        margin-top: 20rem;
+    }
+
+    #gamemodes{
+        margin-top: 17em;
+    }
+}   
+
+
+
+
+
+
+
+
+#chessgame{
+    display: none;
+}
+
+
+
+

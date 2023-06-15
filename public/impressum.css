@@ -1,0 +1,31 @@
+*{
+    color: white;
+}
+
+h1, h2, h3, h4, h5, h6{
+    color: white;
+}
+
+#impressum{
+    margin: 10rem auto;
+    width: fit-content;
+    text-align: center;
+}
+
+h2{
+    font-size: 4em;
+}
+
+h3{
+    font-size: 3em;
+    margin-bottom: 1rem;
+}
+
+ul{
+    margin-left: 1rem;
+    margin-bottom: 2rem;
+}
+
+li{
+    list-style: none;
+}

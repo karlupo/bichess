@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap'); /*Archivo*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap'); /*Roboto*/
+
+
+h1 a{
+    
+    color: white;
+    font-family: 'Archivo Black', sans-serif;
+}
+
+form,#login, #register{
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+h2{
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2em;
+    color: #15253F;
+    margin-bottom: 0.3em;
+}
+
+#login,#register{
+    padding: 2em 1em;
+    background-color: white;
+    width: 20em;
+    height: 25em;
+    border-radius: 1.5em;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75);
+}
+input{
+    width: 12.5em;
+    height: 2.3em;
+    border-radius: 10px;
+    border: 1px solid #15253F;
+    margin-top: 1.3em;
+    
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2em;
+    outline: none;
+}
+
+
+ 
+
+button{
+    width: 10em;
+    height: 2.5em;
+    border-radius: 10px;
+    border: 1px solid #15253F;
+    margin-top: 2em;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    outline: none;
+    background-color: #15253F;
+    color: white;
+    cursor: pointer;
+
+}
+
+hr{
+    width: 22em;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    border: 1px solid #15253F;
+}
+
+form a{
+    color: #15253F;
+    
+}
+
+
+
+#infotext{
+    color: red;
+    font-size: 0.8em;
+    animation: errorFadeOut 10s ease-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes errorFadeOut {
+    0% {
+        opacity: 1;
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Online</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="onlinePlay.css">
+    <link rel="stylesheet" href="game.css">
+    <script src="https://kit.fontawesome.com/81b1e7371a.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <nav>
+        <i class="fa-solid fa-bars fa-xl" id="navicon" style="color: #ffffff;"></i>
+        <div id="navlinks">
+            <a href="/">Start</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+            <a href="/impressum">Impressum</a>
+            <% if(typeof username !== 'undefined'){ %>
+                <a href="/myProfile" id="loggedin">Logged in as: <%= username %></a>
+            <% }else{ %>
+                <a href="/login" id="loggedin">Not logged in</a>
+            <% } %>
+        </div>
+        <h1 id="title">biChess</h1>
+
+    </nav>
+
+    <div  id="select" class="fade-in">
+        
+            <div id="friend" class="playDiv">
+                <h2 class="playtitle">Play a friend</h2>
+                <div class="playlogo" id="friend-img"></div>
+            </div>
+
+
+        
+            <div id="random" class="playDiv">
+                <h2 class="playtitle">Play a random</h2>
+                <div class="playlogo" id="random-img"></div>
+            </div>
+        
+
+    </div >
+
+    <script src="global.js"></script>
+    <script src="onlinePlay.js"></script>
+</body>
+
+</html>

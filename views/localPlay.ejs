@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="localPlay.css">
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="game.css">
+    <script src="https://kit.fontawesome.com/81b1e7371a.js" crossorigin="anonymous"></script>
+    <title>Lokal Spielen</title>
+</head>
+
+<body id="body">
+
+
+    <div class="winner" id="win">
+
+        <h1 class="winner" id="infotext">
+        </h1>
+
+        <a class="winner" href="/">Zurück zum Start</a>
+    </div>
+
+
+    <div id="blur">
+
+        <nav>
+            <i class="fa-solid fa-bars fa-xl" id="navicon" style="color: #ffffff;"></i>
+            <div id="navlinks">
+                <a href="/">Start</a>
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+                <a href="/impressum">Impressum</a>
+                <% if(typeof username !== 'undefined'){ %>
+                    <a href="/myProfile" id="loggedin">Logged in as: <%= username %></a>
+                <% }else{ %>
+                    <a href="/login" id="loggedin">Not logged in</a>
+                <% } %>
+            </div>
+            <h1 id="title">biChess</h1>
+    
+        </nav>
+
+
+        <div id="chessgame">
+            <div id="timesCont">
+                <div class="time" id="time1Cont">
+                    <span class="timePoint" id="time1Point">•</span>
+                    <span id="time1"></span>
+                </div>
+                <div class="time" id="time2Cont">
+                    <span class="timePoint" id="time2Point">•</span>
+                    <span id="time2"></span>
+                </div>
+            </div>
+                
+            <div class="whiteMenu">
+                <div class="teil teil1">
+                    <img src="img/chess/BishopWhite.png">
+                </div>
+
+                <div class="teil teil2">
+                    <img src="img/chess/KnightWhite.png">
+                </div>
+                <div class="teil teil3">
+                    <img src="img/chess/QueenWhite.png">
+                </div>
+                <div class="teil teil4">
+                    <img src="img/chess/RookWhite.png">
+                </div>
+
+            </div>
+            <canvas id="myCanvas"></canvas>
+            <div id="game">
+                <div id="takenWhite"></div>
+                <div id="chessboard">
+                    <div id="overlay"></div>
+                    <div id="figures"></div>
+                </div>
+                <div id="takenBlack"></div>
+
+            </div>
+
+
+            <div class="blackMenu">
+                <div class="teil teil1">
+                    <img src="img/chess/BishopBlack.png">
+                </div>
+
+                <div class="teil teil2">
+                    <img src="img/chess/KnightBlack.png">
+                </div>
+                <div class="teil teil3">
+                    <img src="img/chess/QueenBlack.png">
+                </div>
+                <div class="teil teil4">
+                    <img src="img/chess/RookBlack.png">
+                </div>
+
+
+            </div>
+            
+
+        </div>
+    </div>
+    <script src="/pieceClasses/piece.js"></script>
+    <script src="/pieceClasses/pawn.js"></script>
+    <script src="/pieceClasses/king.js"></script>
+    <script src="/pieceClasses/bishop.js"></script>
+    <script src="/pieceClasses/knight.js"></script>
+    <script src="/pieceClasses/queen.js"></script>
+    <script src="/pieceClasses/rook.js"></script>
+
+
+    <script src="global.js"></script>
+    <script src="localPlay.js"></script>
+</body>
+
+</html>

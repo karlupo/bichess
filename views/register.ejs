@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="login.css">
+    <script src="https://kit.fontawesome.com/81b1e7371a.js" crossorigin="anonymous"></script>
+    <title>Registrieren</title>
+</head>
+<body>
+    
+    <nav>
+        <i class="fa-solid fa-bars fa-xl" id="navicon" style="color: #ffffff;"></i>
+        <div id="navlinks">
+            <a href="/">Start</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+            <a href="/impressum">Impressum</a>
+            <% if(typeof username !== 'undefined'){ %>
+                <a href="/myProfile" id="loggedin">Logged in as: <%= username %></a>
+            <% }else{ %>
+                <a href="/login" id="loggedin">Not logged in</a>
+            <% } %>
+        </div>
+        <h1 id="title">biChess</h1>
+
+    </nav>
+
+    <form action="/registerrequest" method="POST">
+        <div id="register">
+            
+            <h2>Registrieren</h2>
+            <% if(typeof info !== 'undefined'){ %>
+                <p id="infotext"><%= info %></p>
+            <% } %>
+            <input type="email" name="email" placeholder="E-Mail" required>
+            <input type="text" name="username" placeholder="Benutzername" required>
+            <input type="password" name="password" placeholder="Passwort" required>
+        
+            <button >Registrieren</button>
+            <hr>
+        <a href="/login">Anmelden</a>    
+        </div>
+
+
+    </form>
+
+    <script>
+        window.addEventListener('beforeunload', function(event) {
+            window.location.href = "/register";
+        });
+    </script>
+
+    <script src="global.js"></script>
+</body>
+</html>
